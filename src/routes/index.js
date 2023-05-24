@@ -136,6 +136,9 @@ import {
   DesignationCreatePage,
   DesignationEditForm,
   DesignationListPage,
+  DepartmentListPage,
+  DepartmentCreatePage,
+  DepartmentEditForm,
 } from './elements';
 
 
@@ -226,6 +229,16 @@ export default function Router() {
             { path: 'list', element: <DesignationListPage /> },
             { path: 'new', element: <DesignationCreatePage /> },
             { path: 'edit/:id', element: <DesignationEditForm /> },
+          ],
+        },
+
+        {
+          path: 'department',
+          children: [
+            { element: <Navigate to="/dashboard/department/list" replace />, index: true },
+            { path: 'list', element: <DepartmentListPage /> },
+            { path: 'new', element: <DepartmentCreatePage /> },
+            { path: 'edit/:id', element: <DepartmentEditForm /> },
           ],
         },
 

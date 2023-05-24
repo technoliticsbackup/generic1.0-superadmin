@@ -11,16 +11,22 @@ import { _userList } from '../../../_mock/arrays';
 import { useSettingsContext } from '../../../components/settings';
 import CustomBreadcrumbs from '../../../components/custom-breadcrumbs';
 // sections
-import UserNewEditForm from '../../../sections/@dashboard/user/UserNewEditForm';
+import { useGetOneStaffById } from '../../../services/staffServices';
+import StaffEditForm from '../../../sections/@dashboard/staff/StaffEditForm';
+import BlankPage from '../BlankPage';
+import LoadingScreen from '../../../components/loading-screen';
 
-// ----------------------------------------------------------------------
 
 export default function UserEditPage() {
   const { themeStretch } = useSettingsContext();
 
-  const { name } = useParams();
+  const { id } = useParams();
 
-  const currentUser = _userList.find((user) => paramCase(user.name) === name);
+  const { data: currentUser, isLoading, isError } = useGetOneStaffById(id);
+
+  if (isLoading) return <LoadingScreen />;
+
+  if (isError === true) return <BlankPage />;
 
   return (
     <>
@@ -44,7 +50,7 @@ export default function UserEditPage() {
           ]}
         />
 
-        <UserNewEditForm isEdit currentUser={currentUser} />
+        <StaffEditForm isEdit currentUser={currentUser} />
       </Container>
     </>
   );

@@ -188,7 +188,7 @@ export default function StaffListPage() {
           heading="Staff List"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Staff', href: PATH_DASHBOARD.user.root },
+            { name: 'Staff', href: PATH_DASHBOARD.staff.root },
             { name: 'List' },
           ]}
           action={

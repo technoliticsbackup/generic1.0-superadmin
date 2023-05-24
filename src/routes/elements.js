@@ -29,7 +29,7 @@ export const StaffUserCreatePage = Loadable(
   lazy(() => import('../pages/dashboard/staff/StaffCreatePage'))
 );
 export const StaffUserEditPage = Loadable(
-  lazy(() => import('../pages/dashboard/staff/UserEditPage'))
+  lazy(() => import('../pages/dashboard/staff/StaffEditPage'))
 );
 export const StaffUserListPage = Loadable(
   lazy(() => import('../pages/dashboard/staff/StaffListPage'))
@@ -47,6 +47,17 @@ export const DesignationCreatePage = Loadable(
 export const DesignationEditForm = Loadable(
   lazy(() => import('../pages/dashboard/desgination/DesignationEditForm'))
 );
+
+export const DepartmentListPage = Loadable(
+  lazy(() => import('../pages/dashboard/department/DepartmentListPage'))
+);
+export const DepartmentCreatePage = Loadable(
+  lazy(() => import('../pages/dashboard/department/DepartmentCreatePage'))
+);
+export const DepartmentEditForm = Loadable(
+  lazy(() => import('../pages/dashboard/department/DepartmentEditForm'))
+);
+
 
 
 // DASHBOARD: GENERAL

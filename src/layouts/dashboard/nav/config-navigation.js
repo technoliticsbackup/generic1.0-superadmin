@@ -49,6 +49,7 @@ const navConfig = [
     subheader: 'configuration',
     items: [
       // { title: 'app', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
+      { title: 'DEPARTMENT', path: PATH_DASHBOARD.department.list, icon: ICONS.user },
       { title: 'DESIGNATION', path: PATH_DASHBOARD.designation.list, icon: ICONS.user },
     ],
   },

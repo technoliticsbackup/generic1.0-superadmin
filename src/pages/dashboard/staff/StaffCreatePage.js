@@ -7,7 +7,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import { useSettingsContext } from '../../../components/settings';
 import CustomBreadcrumbs from '../../../components/custom-breadcrumbs';
 // sections
-import StaffNewEditForm from '../../../sections/@dashboard/staff/StaffNewEditForm';
+import StaffNewForm from '../../../sections/@dashboard/staff/StaffNewForm';
 
 // ----------------------------------------------------------------------
 
@@ -30,12 +30,12 @@ export default function UserCreatePage() {
             },
             {
               name: 'Staff',
-              href: PATH_DASHBOARD.user.list,
+              href: PATH_DASHBOARD.staff.list,
             },
             { name: 'New staff' },
           ]}
         />
-        <StaffNewEditForm />
+        <StaffNewForm />
       </Container>
     </>
   );

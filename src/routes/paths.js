@@ -41,6 +41,7 @@ export const PATH_DASHBOARD = {
   fileManager: path(ROOTS_DASHBOARD, '/files-manager'),
   permissionDenied: path(ROOTS_DASHBOARD, '/permission-denied'),
   blank: path(ROOTS_DASHBOARD, '/blank'),
+
   staff: {
     root: path(ROOTS_DASHBOARD, '/staff'),
     list: path(ROOTS_DASHBOARD, '/staff/list'),
@@ -55,6 +56,13 @@ export const PATH_DASHBOARD = {
     list: path(ROOTS_DASHBOARD, '/designation/list'),
     new: path(ROOTS_DASHBOARD, '/designation/new'),
     edit: (id) => path(ROOTS_DASHBOARD, `/designation/edit/${id}/`),
+  },
+
+  department: {
+    root: path(ROOTS_DASHBOARD, '/department'),
+    list: path(ROOTS_DASHBOARD, '/department/list'),
+    new: path(ROOTS_DASHBOARD, '/department/new'),
+    edit: (id) => path(ROOTS_DASHBOARD, `/department/edit/${id}/`),
   },
   
   
