@@ -3,79 +3,76 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import AuthGuard from '../auth/AuthGuard';
 import GuestGuard from '../auth/GuestGuard';
 // layouts
-import MainLayout from '../layouts/main';
-import SimpleLayout from '../layouts/simple';
 import CompactLayout from '../layouts/compact';
 import DashboardLayout from '../layouts/dashboard';
+import SimpleLayout from '../layouts/simple';
 // config
 import { PATH_AFTER_LOGIN } from '../config-global';
 //
 import {
-  // Auth
-  LoginPage,
-  RegisterPage,
-  VerifyCodePage,
-  NewPasswordPage,
-  ResetPasswordPage,
+  AboutPage,
+  //
+  BlankPage,
+  BlogNewPostPage,
+  BlogPostPage,
+  // Dashboard: Blog
+  BlogPostsPage,
+  CalendarPage,
+  // Dashboard: App
+  ChatPage,
+  ComingSoonPage,
+  //
+  ComponentsOverviewPage,
+  Contact,
+  //
+  DemoAnimatePage,
+  DemoCarouselsPage,
+  DemoChartsPage,
+  DemoCopyToClipboardPage,
+  DemoEditorPage,
+  DemoFormValidationPage,
+  DemoImagePage,
+  DemoLabelPage,
+  DemoLightboxPage,
+  DemoMapPage,
+  DemoMarkdownPage,
+  DemoMegaMenuPage,
+  DemoMultiLanguagePage,
+  DemoNavigationBarPage,
+  DemoOrganizationalChartPage,
+  DemoScrollbarPage,
+  DemoSnackbarPage,
+  DemoTextMaxLinePage,
+  DemoUploadPage,
+  EcommerceCheckoutPage,
+  EcommerceProductCreatePage,
+  EcommerceProductDetailsPage,
+  EcommerceProductEditPage,
+  EcommerceProductListPage,
+  // Dashboard: Ecommerce
+  EcommerceShopPage,
+  FaqsPage,
+  // Dashboard: FileManager
+  FileManagerPage,
+  FoundationColorsPage,
+  FoundationGridPage,
+  FoundationIconsPage,
+  FoundationShadowsPage,
+  FoundationTypographyPage,
+  GeneralAnalyticsPage,
   // Dashboard: General
   GeneralAppPage,
-  GeneralFilePage,
   GeneralBankingPage,
   GeneralBookingPage,
   GeneralEcommercePage,
-  GeneralAnalyticsPage,
-  // Dashboard: User
-  UserListPage,
-  UserEditPage,
-  UserCardsPage,
-  UserCreatePage,
-  UserProfilePage,
-  UserAccountPage,
-  // Dashboard: Ecommerce
-  EcommerceShopPage,
-  EcommerceCheckoutPage,
-  EcommerceProductListPage,
-  EcommerceProductEditPage,
-  EcommerceProductCreatePage,
-  EcommerceProductDetailsPage,
+  GeneralFilePage,
+  InvoiceCreatePage,
+  InvoiceDetailsPage,
+  InvoiceEditPage,
   // Dashboard: Invoice
   InvoiceListPage,
-  InvoiceDetailsPage,
-  InvoiceCreatePage,
-  InvoiceEditPage,
-  // Dashboard: Blog
-  BlogPostsPage,
-  BlogPostPage,
-  BlogNewPostPage,
-  // Dashboard: FileManager
-  FileManagerPage,
-  // Dashboard: App
-  ChatPage,
-  MailPage,
-  CalendarPage,
   KanbanPage,
-  //
-  BlankPage,
-  PermissionDeniedPage,
-  //
-  Page500,
-  Page403,
-  Page404,
-  HomePage,
-  FaqsPage,
-  AboutPage,
-  Contact,
-  PricingPage,
-  PaymentPage,
-  ComingSoonPage,
-  MaintenancePage,
-  //
-  ComponentsOverviewPage,
-  FoundationColorsPage,
-  FoundationTypographyPage,
-  FoundationShadowsPage,
-  FoundationGridPage,
-  FoundationIconsPage,
+  LoginPage,
   //
   MUIAccordionPage,
   MUIAlertPage,
@@ -106,27 +103,42 @@ import {
   MUITooltipPage,
   MUITransferListPage,
   MUITreesViewPage,
+  MailPage,
+  MaintenancePage,
+  NewPasswordPage,
+  Page403,
+  Page404,
   //
-  DemoAnimatePage,
-  DemoCarouselsPage,
-  DemoChartsPage,
-  DemoCopyToClipboardPage,
-  DemoEditorPage,
-  DemoFormValidationPage,
-  DemoImagePage,
-  DemoLabelPage,
-  DemoLightboxPage,
-  DemoMapPage,
-  DemoMegaMenuPage,
-  DemoMultiLanguagePage,
-  DemoNavigationBarPage,
-  DemoOrganizationalChartPage,
-  DemoScrollbarPage,
-  DemoSnackbarPage,
-  DemoTextMaxLinePage,
-  DemoUploadPage,
-  DemoMarkdownPage,
+  Page500,
+  PaymentPage,
+  PermissionDeniedPage,
+  PricingPage,
+  RegisterPage,
+  ResetPasswordPage,
+  UserAccountPage,
+  UserCardsPage,
+  UserCreatePage,
+  UserEditPage,
+  // Dashboard: User
+  UserListPage,
+  UserProfilePage,
+  VerifyCodePage,
+
+
+  //STAFF
+  StaffUserCreatePage,
+  StaffUserEditPage,
+  StaffUserListPage,
+  StaffChangePassword,
+  StaffDetailsPage,
+
+  // DESIGNATION
+  DesignationCreatePage,
+  DesignationEditForm,
+  DesignationListPage,
 } from './elements';
+
+
 
 // ----------------------------------------------------------------------
 
@@ -181,6 +193,7 @@ export default function Router() {
         { path: 'banking', element: <GeneralBankingPage /> },
         { path: 'booking', element: <GeneralBookingPage /> },
         { path: 'file', element: <GeneralFilePage /> },
+
         {
           path: 'e-commerce',
           children: [
@@ -193,6 +206,29 @@ export default function Router() {
             { path: 'checkout', element: <EcommerceCheckoutPage /> },
           ],
         },
+
+        {
+          path: 'staff',
+          children: [
+            { element: <Navigate to="/dashboard/staff/list" replace />, index: true },
+            { path: 'list', element: <StaffUserListPage /> },
+            { path: 'new', element: <StaffUserCreatePage /> },
+            { path: 'passwordchange/:id', element: <StaffChangePassword /> },
+            { path: 'edit/:id', element: <StaffUserEditPage /> },
+            { path: ':id', element: <StaffDetailsPage /> },
+          ],
+        },
+
+        {
+          path: 'designation',
+          children: [
+            { element: <Navigate to="/dashboard/designation/list" replace />, index: true },
+            { path: 'list', element: <DesignationListPage /> },
+            { path: 'new', element: <DesignationCreatePage /> },
+            { path: 'edit/:id', element: <DesignationEditForm /> },
+          ],
+        },
+
         {
           path: 'user',
           children: [
@@ -252,9 +288,13 @@ export default function Router() {
 
     // Main Routes
     {
-      element: <MainLayout />,
+      // element: <MainLayout />,
       children: [
-        { element: <HomePage />, index: true },
+        {
+          element: <GuestGuard>
+            <LoginPage />
+          </GuestGuard>, index: true
+        },
         { path: 'about-us', element: <AboutPage /> },
         { path: 'contact-us', element: <Contact /> },
         { path: 'faqs', element: <FaqsPage /> },

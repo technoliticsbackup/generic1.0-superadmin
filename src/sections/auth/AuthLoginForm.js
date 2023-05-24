@@ -1,19 +1,17 @@
 import { useState } from 'react';
 import * as Yup from 'yup';
-import { Link as RouterLink } from 'react-router-dom';
 // form
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 // @mui
-import { Link, Stack, Alert, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { Alert, IconButton, InputAdornment, Stack } from '@mui/material';
 // routes
-import { PATH_AUTH } from '../../routes/paths';
 // auth
 import { useAuthContext } from '../../auth/useAuthContext';
 // components
-import Iconify from '../../components/iconify';
 import FormProvider, { RHFTextField } from '../../components/hook-form';
+import Iconify from '../../components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -23,13 +21,13 @@ export default function AuthLoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().required('Email is required').email('Email must be a valid email address'),
+    email_id: Yup.string().required('Email is required').email('Email must be a valid email address'),
     password: Yup.string().required('Password is required'),
   });
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
-    password: 'demo1234',
+    email_id: '',
+    password: '',
   };
 
   const methods = useForm({
@@ -46,13 +44,13 @@ export default function AuthLoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data.email, data.password);
+      await login(data.email_id, data.password);
     } catch (error) {
       console.error(error);
       reset();
       setError('afterSubmit', {
         ...error,
-        message: error.message,
+        message: error?.response?.data?.message,
       });
     }
   };
@@ -62,7 +60,7 @@ export default function AuthLoginForm() {
       <Stack spacing={3}>
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
 
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField name="email_id" label="Email address" />
 
         <RHFTextField
           name="password"
@@ -80,18 +78,6 @@ export default function AuthLoginForm() {
         />
       </Stack>
 
-      <Stack alignItems="flex-end" sx={{ my: 2 }}>
-        <Link
-          component={RouterLink}
-          to={PATH_AUTH.resetPassword}
-          variant="body2"
-          color="inherit"
-          underline="always"
-        >
-          Forgot password?
-        </Link>
-      </Stack>
-
       <LoadingButton
         fullWidth
         color="inherit"
@@ -100,6 +86,7 @@ export default function AuthLoginForm() {
         variant="contained"
         loading={isSubmitSuccessful || isSubmitting}
         sx={{
+          mt:3,
           bgcolor: 'text.primary',
           color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
           '&:hover': {

@@ -20,6 +20,35 @@ export const VerifyCodePage = Loadable(lazy(() => import('../pages/auth/VerifyCo
 export const NewPasswordPage = Loadable(lazy(() => import('../pages/auth/NewPasswordPage')));
 export const ResetPasswordPage = Loadable(lazy(() => import('../pages/auth/ResetPasswordPage')));
 
+
+
+export const StaffChangePassword = Loadable(
+  lazy(() => import('../pages/dashboard/staff/StaffChangePassword'))
+);
+export const StaffUserCreatePage = Loadable(
+  lazy(() => import('../pages/dashboard/staff/StaffCreatePage'))
+);
+export const StaffUserEditPage = Loadable(
+  lazy(() => import('../pages/dashboard/staff/UserEditPage'))
+);
+export const StaffUserListPage = Loadable(
+  lazy(() => import('../pages/dashboard/staff/StaffListPage'))
+);
+export const StaffDetailsPage = Loadable(
+  lazy(() => import('../pages/dashboard/staff/StaffDetailsPage'))
+);
+
+export const DesignationListPage = Loadable(
+  lazy(() => import('../pages/dashboard/desgination/DesignationListPage'))
+);
+export const DesignationCreatePage = Loadable(
+  lazy(() => import('../pages/dashboard/desgination/DesignationCreatePage'))
+);
+export const DesignationEditForm = Loadable(
+  lazy(() => import('../pages/dashboard/desgination/DesignationEditForm'))
+);
+
+
 // DASHBOARD: GENERAL
 export const GeneralAppPage = Loadable(lazy(() => import('../pages/dashboard/GeneralAppPage')));
 export const GeneralEcommercePage = Loadable(

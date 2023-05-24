@@ -41,6 +41,23 @@ export const PATH_DASHBOARD = {
   fileManager: path(ROOTS_DASHBOARD, '/files-manager'),
   permissionDenied: path(ROOTS_DASHBOARD, '/permission-denied'),
   blank: path(ROOTS_DASHBOARD, '/blank'),
+  staff: {
+    root: path(ROOTS_DASHBOARD, '/staff'),
+    list: path(ROOTS_DASHBOARD, '/staff/list'),
+    new: path(ROOTS_DASHBOARD, '/staff/new'),
+    passwordchange: (id) => path(ROOTS_DASHBOARD, `/staff/passwordchange/${id}`),
+    edit: (id) => path(ROOTS_DASHBOARD, `/staff/edit/${id}/`),
+    view: (id) => path(ROOTS_DASHBOARD, `/staff/${id}`),
+  },
+
+  designation: {
+    root: path(ROOTS_DASHBOARD, '/designation'),
+    list: path(ROOTS_DASHBOARD, '/designation/list'),
+    new: path(ROOTS_DASHBOARD, '/designation/new'),
+    edit: (id) => path(ROOTS_DASHBOARD, `/designation/edit/${id}/`),
+  },
+  
+  
   general: {
     app: path(ROOTS_DASHBOARD, '/app'),
     ecommerce: path(ROOTS_DASHBOARD, '/ecommerce'),

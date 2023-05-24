@@ -1,18 +1,8 @@
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useReducer, useCallback, useMemo } from 'react';
-// utils
 import axios from '../utils/axios';
 import localStorageAvailable from '../utils/localStorageAvailable';
-//
 import { isValidToken, setSession } from './utils';
-
-// ----------------------------------------------------------------------
-
-// NOTE:
-// We only build demo at basic level.
-// Customer will need to do some extra handling yourself if you want to extend the logic and other features...
-
-// ----------------------------------------------------------------------
 
 const initialState = {
   isInitialized: false,
@@ -53,11 +43,7 @@ const reducer = (state, action) => {
   return state;
 };
 
-// ----------------------------------------------------------------------
-
 export const AuthContext = createContext(null);
-
-// ----------------------------------------------------------------------
 
 AuthProvider.propTypes = {
   children: PropTypes.node,
@@ -71,11 +57,12 @@ export function AuthProvider({ children }) {
   const initialize = useCallback(async () => {
     try {
       const accessToken = storageAvailable ? localStorage.getItem('accessToken') : '';
+      const userId = storageAvailable ? localStorage.getItem('userId') : "";
 
       if (accessToken && isValidToken(accessToken)) {
-        setSession(accessToken);
+        setSession(accessToken, userId);
 
-        const response = await axios.get('/api/account/my-account');
+        const response = await axios.get('/adminuser/loginwithid/' + userId);
 
         const { user } = response.data;
 
@@ -111,15 +98,14 @@ export function AuthProvider({ children }) {
     initialize();
   }, [initialize]);
 
-  // LOGIN
-  const login = useCallback(async (email, password) => {
-    const response = await axios.post('/api/account/login', {
-      email,
+  const login = useCallback(async (email_id, password) => {
+    const response = await axios.post('/adminuser/login', {
+      email_id,
       password,
     });
-    const { accessToken, user } = response.data;
+    const { accessToken, id, user } = response.data;
 
-    setSession(accessToken);
+    setSession(accessToken, id);
 
     dispatch({
       type: 'LOGIN',
@@ -131,7 +117,7 @@ export function AuthProvider({ children }) {
 
   // REGISTER
   const register = useCallback(async (email, password, firstName, lastName) => {
-    const response = await axios.post('/api/account/register', {
+    const response = await axios.post('/adminuser/register', {
       email,
       password,
       firstName,

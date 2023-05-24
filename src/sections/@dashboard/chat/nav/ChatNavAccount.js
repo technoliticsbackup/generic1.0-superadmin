@@ -41,8 +41,8 @@ export default function ChatNavAccount() {
     <>
       <CustomAvatar
         src={user?.photoURL}
-        alt={user?.displayName}
-        name={user?.displayName}
+        alt={user?.name}
+        name={user?.name}
         BadgeProps={{
           badgeContent: <BadgeStatus status={status} />,
         }}
@@ -54,11 +54,11 @@ export default function ChatNavAccount() {
         <Stack direction="row" alignItems="center" spacing={2} sx={{ py: 2, pr: 1, pl: 2.5 }}>
           <div>
             <Typography noWrap variant="subtitle2">
-              {user?.displayName}
+              {user?.name}
             </Typography>
 
             <Typography noWrap variant="body2" sx={{ color: 'text.secondary' }}>
-              {user?.email}
+              {user?.email_id}
             </Typography>
           </div>
 
