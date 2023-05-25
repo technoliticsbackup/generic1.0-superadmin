@@ -124,21 +124,23 @@ import {
   UserProfilePage,
   VerifyCodePage,
 
-
+//New LIST
   //STAFF
   StaffUserCreatePage,
   StaffUserEditPage,
   StaffUserListPage,
   StaffChangePassword,
   StaffDetailsPage,
-
-  // DESIGNATION
   DesignationCreatePage,
   DesignationEditForm,
   DesignationListPage,
   DepartmentListPage,
   DepartmentCreatePage,
   DepartmentEditForm,
+  OrgmanegementListPage,
+  OrgmanegementCreatePage,
+  OrgmanegementEditForm,
+  OrgmanegementDetailsPage
 } from './elements';
 
 
@@ -191,24 +193,6 @@ export default function Router() {
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
         { path: 'app', element: <GeneralAppPage /> },
-        { path: 'ecommerce', element: <GeneralEcommercePage /> },
-        { path: 'analytics', element: <GeneralAnalyticsPage /> },
-        { path: 'banking', element: <GeneralBankingPage /> },
-        { path: 'booking', element: <GeneralBookingPage /> },
-        { path: 'file', element: <GeneralFilePage /> },
-
-        {
-          path: 'e-commerce',
-          children: [
-            { element: <Navigate to="/dashboard/e-commerce/shop" replace />, index: true },
-            { path: 'shop', element: <EcommerceShopPage /> },
-            { path: 'product/:name', element: <EcommerceProductDetailsPage /> },
-            { path: 'list', element: <EcommerceProductListPage /> },
-            { path: 'product/new', element: <EcommerceProductCreatePage /> },
-            { path: 'product/:name/edit', element: <EcommerceProductEditPage /> },
-            { path: 'checkout', element: <EcommerceCheckoutPage /> },
-          ],
-        },
 
         {
           path: 'staff',
@@ -239,6 +223,40 @@ export default function Router() {
             { path: 'list', element: <DepartmentListPage /> },
             { path: 'new', element: <DepartmentCreatePage /> },
             { path: 'edit/:id', element: <DepartmentEditForm /> },
+          ],
+        },
+        
+        {
+          path: 'orgmanagment',
+          children: [
+            { element: <Navigate to="/dashboard/orgmanagment/list" replace />, index: true },
+            { path: 'list', element: <OrgmanegementListPage /> },
+            { path: 'new', element: <OrgmanegementCreatePage /> },
+            { path: 'edit/:id', element: <OrgmanegementEditForm /> },
+            { path: ':id', element: <OrgmanegementDetailsPage /> },
+          ],
+        },
+
+
+        // old list
+
+
+        { path: 'ecommerce', element: <GeneralEcommercePage /> },
+        { path: 'analytics', element: <GeneralAnalyticsPage /> },
+        { path: 'banking', element: <GeneralBankingPage /> },
+        { path: 'booking', element: <GeneralBookingPage /> },
+        { path: 'file', element: <GeneralFilePage /> },
+
+        {
+          path: 'e-commerce',
+          children: [
+            { element: <Navigate to="/dashboard/e-commerce/shop" replace />, index: true },
+            { path: 'shop', element: <EcommerceShopPage /> },
+            { path: 'product/:name', element: <EcommerceProductDetailsPage /> },
+            { path: 'list', element: <EcommerceProductListPage /> },
+            { path: 'product/new', element: <EcommerceProductCreatePage /> },
+            { path: 'product/:name/edit', element: <EcommerceProductEditPage /> },
+            { path: 'checkout', element: <EcommerceCheckoutPage /> },
           ],
         },
 
