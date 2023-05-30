@@ -1,10 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
-import { Card, Grid, Stack, Typography } from '@mui/material';
-import { useEffect, useMemo } from 'react';
-
-import { Box } from '@mui/material';
+import { Box, Card, Grid, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -19,7 +17,7 @@ import { fData } from '../../../utils/formatNumber';
 
 OrgmanegementAddForm.propTypes = {
   isEdit: PropTypes.bool,
-  data: PropTypes.func,
+  orgdata: PropTypes.func,
 };
 
 const stateAlldata = [
@@ -56,6 +54,7 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
       org_logo: orgdata?.org_logo || "",
       address: orgdata?.address || ""
     }),
+       // eslint-disable-next-line react-hooks/exhaustive-deps
     [orgdata]
   );
 

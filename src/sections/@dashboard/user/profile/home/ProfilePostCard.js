@@ -80,11 +80,11 @@ export default function ProfilePostCard({ post }) {
       <CardHeader
         disableTypography
         avatar={
-          <CustomAvatar src={user?.photoURL} alt={user?.name} name={user?.name} />
+          <CustomAvatar src={user?.profile} alt={user?.name} name={user?.name} />
         }
         title={
           <Link color="inherit" variant="subtitle2">
-            {user?.displayName}
+            {user?.name}
           </Link>
         }
         subheader={
@@ -191,7 +191,7 @@ export default function ProfilePostCard({ post }) {
           p: (theme) => theme.spacing(0, 3, 3, 3),
         }}
       >
-        <CustomAvatar src={user?.photoURL} alt={user?.name} name={user?.name} />
+        <CustomAvatar src={user?.profile} alt={user?.name} name={user?.name} />
 
         <InputBase
           fullWidth

@@ -1,9 +1,9 @@
 import { Container } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
 import CustomBreadcrumbs from '../../../components/custom-breadcrumbs';
 import LoadingScreen from '../../../components/loading-screen';
 import { useSettingsContext } from '../../../components/settings';
-import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import { DesignationAddForm } from '../../../sections/@dashboard/designation';
 import { useGetOneDesignationById } from '../../../services/designationServices';

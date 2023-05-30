@@ -21,12 +21,12 @@ export default function AuthLoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
-    email_id: Yup.string().required('Email is required').email('Email must be a valid email address'),
+    email: Yup.string().required('Email is required').email('Email must be a valid email address'),
     password: Yup.string().required('Password is required'),
   });
 
   const defaultValues = {
-    email_id: '',
+    email: '',
     password: '',
   };
 
@@ -44,13 +44,13 @@ export default function AuthLoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data.email_id, data.password);
+      await login(data.email, data.password);
     } catch (error) {
       console.error(error);
       reset();
       setError('afterSubmit', {
         ...error,
-        message: error?.response?.data?.message,
+        message: error.message,
       });
     }
   };
@@ -60,7 +60,7 @@ export default function AuthLoginForm() {
       <Stack spacing={3}>
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
 
-        <RHFTextField name="email_id" label="Email address" />
+        <RHFTextField name="email" label="Email address" />
 
         <RHFTextField
           name="password"
@@ -86,13 +86,13 @@ export default function AuthLoginForm() {
         variant="contained"
         loading={isSubmitSuccessful || isSubmitting}
         sx={{
-          mt:3,
           bgcolor: 'text.primary',
           color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
           '&:hover': {
             bgcolor: 'text.primary',
             color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
           },
+          mt:3
         }}
       >
         Login

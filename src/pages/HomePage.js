@@ -1,20 +1,19 @@
-import { Helmet } from 'react-helmet-async';
 import { m, useScroll, useSpring } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 // @mui
-import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 // sections
 import {
-  HomeHero,
-  HomeMinimal,
-  HomeDarkMode,
-  HomeLookingFor,
-  HomeForDesigner,
-  HomeColorPresets,
-  HomePricingPlans,
   HomeAdvertisement,
   HomeCleanInterfaces,
+  HomeColorPresets,
+  HomeDarkMode,
+  HomeForDesigner,
   HomeHugePackElements,
+  HomeLookingFor,
+  HomeMinimal,
+  HomePricingPlans
 } from '../sections/home';
 
 // ----------------------------------------------------------------------
@@ -31,7 +30,7 @@ export default function HomePage() {
   });
 
   const progress = (
-    <m.div
+    <m.divß
       style={{
         top: 0,
         left: 0,
@@ -54,7 +53,7 @@ export default function HomePage() {
 
       {progress}
 
-      <HomeHero />
+      {/* <HomeHero /> */}
 
       <Box
         sx={{

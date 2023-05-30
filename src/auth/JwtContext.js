@@ -62,7 +62,7 @@ export function AuthProvider({ children }) {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken, userId);
 
-        const response = await axios.get('/adminuser/loginwithid/' + userId);
+        const response = await axios.get(`/adminuser/loginwithid/${userId}`);
 
         const { user } = response.data;
 

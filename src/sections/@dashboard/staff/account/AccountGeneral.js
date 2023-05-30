@@ -44,7 +44,7 @@ export default function AccountGeneral() {
   const defaultValues = {
     displayName: user?.displayName || '',
     email: user?.email || '',
-    photoURL: user?.photoURL || null,
+    photoURL: user?.profile || null,
     phoneNumber: user?.phoneNumber || '',
     country: user?.country || '',
     address: user?.address || '',

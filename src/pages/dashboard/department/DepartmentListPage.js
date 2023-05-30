@@ -1,21 +1,21 @@
 import { Button, Card, Container, Divider, Table, TableBody, TableContainer } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import CustomBreadcrumbs from '../../../components/custom-breadcrumbs';
 import Iconify from '../../../components/iconify';
 import LoadingScreen from '../../../components/loading-screen';
 import Scrollbar from '../../../components/scrollbar';
 import { useSettingsContext } from '../../../components/settings';
 import {
-  emptyRows,
-  getComparator,
   TableEmptyRows,
   TableHeadCustom,
   TableNoData,
   TablePaginationCustom,
+  emptyRows,
+  getComparator,
   useTable,
 } from '../../../components/table';
-import { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import { DepartmentTableRow, DepartmentToolbar } from '../../../sections/@dashboard/department';
 import { useGetAllDepartment } from '../../../services/departmentServices';

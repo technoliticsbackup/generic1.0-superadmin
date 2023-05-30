@@ -29,6 +29,7 @@ import {
 
 StaffNewForm.propTypes = {
     isEdit: PropTypes.bool,
+    id: PropTypes.node,
 };
 
 export default function StaffNewForm({ isEdit = false, id }) {

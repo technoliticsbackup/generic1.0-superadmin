@@ -11,6 +11,7 @@ OrgmanegementTableRow.propTypes = {
   row: PropTypes.object,
   index: PropTypes.number,
   onEditRow: PropTypes.func,
+  onAddStaff: PropTypes.func,
 };
 
 export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaff }) {

@@ -52,7 +52,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }) {
   const defaultValues = useMemo(
     () => ({
       name: currentUser?.name || '',
-      email: currentUser?.email || '',
+      email: currentUser?.email_id || '',
       phoneNumber: currentUser?.phoneNumber || '',
       address: currentUser?.address || '',
       country: currentUser?.country || '',

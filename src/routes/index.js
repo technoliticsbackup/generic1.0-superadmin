@@ -122,29 +122,8 @@ import {
   // Dashboard: User
   UserListPage,
   UserProfilePage,
-  VerifyCodePage,
-
-//New LIST
-  //STAFF
-  StaffUserCreatePage,
-  StaffUserEditPage,
-  StaffUserListPage,
-  StaffChangePassword,
-  StaffDetailsPage,
-  DesignationCreatePage,
-  DesignationEditForm,
-  DesignationListPage,
-  DepartmentListPage,
-  DepartmentCreatePage,
-  DepartmentEditForm,
-  OrgmanegementListPage,
-  OrgmanegementCreatePage,
-  OrgmanegementEditForm,
-  OrgmanegementDetailsPage,
-  StaffCreatePage,
+  VerifyCodePage
 } from './elements';
-
-
 
 // ----------------------------------------------------------------------
 
@@ -194,61 +173,11 @@ export default function Router() {
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
         { path: 'app', element: <GeneralAppPage /> },
-
-        {
-          path: 'staff',
-          children: [
-            { element: <Navigate to="/dashboard/staff/list" replace />, index: true },
-            { path: 'list', element: <StaffUserListPage /> },
-            { path: 'new', element: <StaffUserCreatePage /> },
-            { path: 'passwordchange/:id', element: <StaffChangePassword /> },
-            { path: 'edit/:id', element: <StaffUserEditPage /> },
-            { path: ':id', element: <StaffDetailsPage /> },
-          ],
-        },
-
-        {
-          path: 'designation',
-          children: [
-            { element: <Navigate to="/dashboard/designation/list" replace />, index: true },
-            { path: 'list', element: <DesignationListPage /> },
-            { path: 'new', element: <DesignationCreatePage /> },
-            { path: 'edit/:id', element: <DesignationEditForm /> },
-          ],
-        },
-
-        {
-          path: 'department',
-          children: [
-            { element: <Navigate to="/dashboard/department/list" replace />, index: true },
-            { path: 'list', element: <DepartmentListPage /> },
-            { path: 'new', element: <DepartmentCreatePage /> },
-            { path: 'edit/:id', element: <DepartmentEditForm /> },
-          ],
-        },
-        
-        {
-          path: 'orgmanagment',
-          children: [
-            { element: <Navigate to="/dashboard/orgmanagment/list" replace />, index: true },
-            { path: 'list', element: <OrgmanegementListPage /> },
-            { path: 'new', element: <OrgmanegementCreatePage /> },
-            { path: 'edit/:id', element: <OrgmanegementEditForm /> },
-            { path: ':id', element: <OrgmanegementDetailsPage /> },
-            { path: 'addstaff/:id', element: <StaffCreatePage /> },
-          ],
-        },
-
-
-        // old list
-
-
         { path: 'ecommerce', element: <GeneralEcommercePage /> },
         { path: 'analytics', element: <GeneralAnalyticsPage /> },
         { path: 'banking', element: <GeneralBankingPage /> },
         { path: 'booking', element: <GeneralBookingPage /> },
         { path: 'file', element: <GeneralFilePage /> },
-
         {
           path: 'e-commerce',
           children: [
@@ -261,7 +190,6 @@ export default function Router() {
             { path: 'checkout', element: <EcommerceCheckoutPage /> },
           ],
         },
-
         {
           path: 'user',
           children: [
@@ -321,7 +249,6 @@ export default function Router() {
 
     // Main Routes
     {
-      // element: <MainLayout />,
       children: [
         {
           element: <GuestGuard>
