@@ -18,7 +18,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import { OrgmanegementTableRow, OrgmanegementToolbar } from '../../../sections/@dashboard/orgmanegement';
-import { useGetAllDesignation } from '../../../services/designationServices';
+import { useGetAllOrgmaneger } from '../../../services/orgmanegerServices';
 import BlankPage from '../BlankPage';
 
 
@@ -63,18 +63,18 @@ export default function OrgmanegementListPage() {
   const [getDownload, setGetDownload] = useState([]);
   const [filterName, setFilterName] = useState('');
 
-  // const {
-  //   data,
-  //   isLoading: designationIsLoading,
-  //   isError: designationIsError,
-  // } = useGetAllDesignation();
+  const {
+    data,
+    isLoading: designationIsLoading,
+    isError: designationIsError,
+  } = useGetAllOrgmaneger();
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setTableData(data);
-  //     setGetDownload(data);
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data) {
+      setTableData(data);
+      setGetDownload(data);
+    }
+  }, [data]);
 
 
   const dataFiltered = applyFilter({
@@ -87,9 +87,9 @@ export default function OrgmanegementListPage() {
 
   const isNotFound = !dataFiltered.length && !!filterName;
 
-  // if (designationIsLoading) return <LoadingScreen />;
+  if (designationIsLoading) return <LoadingScreen />;
 
-  // if (designationIsError) return <BlankPage />;
+  if (designationIsError) return <BlankPage />;
 
   const handleFilterName = (event) => {
     setPage(0);
@@ -99,6 +99,11 @@ export default function OrgmanegementListPage() {
   const handleEditRow = (id) => {
     navigate(PATH_DASHBOARD.orgmanagment.edit(id));
   };
+
+  const handleAddStaff = (id) => {
+    navigate(PATH_DASHBOARD.orgmanagment.addstaff(id));
+  };
+
 
   return (
     <>
@@ -152,10 +157,11 @@ export default function OrgmanegementListPage() {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => (
                       <OrgmanegementTableRow
-                        key={row.id}
+                        key={row._id}
                         row={row}
                         index={index}
                         onEditRow={() => handleEditRow(row._id)}
+                        onAddStaff={()=> handleAddStaff(row._id)}
                       />
                     ))}
 
@@ -176,7 +182,6 @@ export default function OrgmanegementListPage() {
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}
             onRowsPerPageChange={onChangeRowsPerPage}
-            //
             dense={dense}
             onChangeDense={onChangeDense}
           />

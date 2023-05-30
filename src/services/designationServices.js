@@ -15,6 +15,27 @@ export const useGetAllDesignation = () => {
   };
 };
 
+
+export function useGetAllDesignationStatusAndDepartment(departmentId) {
+  const { data, isLoading, isError, refetch } = useQuery(
+    ['_getAllDesignationStatusAndDepartment', departmentId],
+    async () => {
+      const response = await axiosInstance.get(`/designation/web/allbydepartment/${departmentId}`);
+      return response.data;
+    },
+    {
+      enabled: !!departmentId,
+    }
+  );
+
+  return {
+    data: data?.designation || [],
+    isLoading,
+    isError,
+    refetch,
+  };
+}
+
 export const useGetAllDesignationStatus = () => {
   const { data, isError, isLoading } = useQuery(
     ['_getGetAllDesignationStatus'],
@@ -44,7 +65,6 @@ export const useCreateDesignation = () => {
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(
     (data) => {
-      console.log('data123', data);
       const formData = data;
       return axiosInstance.post('/designation/add', formData);
     },

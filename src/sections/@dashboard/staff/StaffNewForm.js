@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useCallback, useEffect, useMemo, } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 // form
@@ -23,7 +23,7 @@ import {
   useGetAllDepartmentStatus
 } from '../../../services/departmentServices';
 import {
-  useGetAllDesignationStatus
+  useGetAllDesignationStatusAndDepartment
 } from '../../../services/designationServices';
 import {
   useCreateStaff
@@ -39,6 +39,7 @@ export default function StaffNewForm({ isEdit = false, currentUser }) {
   const navigate = useNavigate();
 
   const { createStaff, isLoading: staffIsLoading } = useCreateStaff();
+  const [departmentFor, setDepartmentFor] = useState('');
 
   const NewUserSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -84,7 +85,7 @@ export default function StaffNewForm({ isEdit = false, currentUser }) {
   }, [isEdit, currentUser]);
 
   const { data: departmentAlldata, } = useGetAllDepartmentStatus();
-  const { data: designationAlldata, } = useGetAllDesignationStatus();
+  const { data: designationAlldata, refetch: fetchDesignations } = useGetAllDesignationStatusAndDepartment(departmentFor);   
 
 
   const onSubmit = async (data) => {
@@ -124,6 +125,13 @@ export default function StaffNewForm({ isEdit = false, currentUser }) {
     reset();
     navigate(PATH_DASHBOARD.staff.list);
   };
+
+  const onSetDepartmentFor = (value) => {
+    setDepartmentFor(value)
+    setValue("department",value)
+
+    fetchDesignations(value)
+  }
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -168,7 +176,8 @@ export default function StaffNewForm({ isEdit = false, currentUser }) {
             >
 
               <RHFTextField name="name" label="Complete Name" />
-              {departmentAlldata?.length ? <RHFSelect native name="department" label="Department" placeholder="Department">
+              {departmentAlldata?.length ? <RHFSelect native name="department" value={departmentFor}
+                onChange={(e) => onSetDepartmentFor(e.target.value)} label="Department" placeholder="Department">
                 <option value="" />
                 {departmentAlldata.map((item) => (
                   <option key={item._id} value={item._id}>

@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
 import { Card, Grid, Stack, Typography } from '@mui/material';
+import { useEffect, useMemo } from 'react';
 
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
@@ -9,17 +9,13 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import FormProvider, { RHFSelect, RHFTextField, RHFUploadAvatar } from '../../../components/hook-form';
-import { fData } from '../../../utils/formatNumber';
+import LoadingScreen from '../../../components/loading-screen';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import {
-  useCreateDesignation,
-  useUpdateDesignationById,
-} from '../../../services/designationServices';
-
-import LoadingScreen from '../../../components/loading-screen';
-import {
-  useGetAllDepartmentStatus
-} from '../../../services/departmentServices';
+  useCreateOrgmaneger,
+  useUpdateOrgmanegerById,
+} from '../../../services/orgmanegerServices';
+import { fData } from '../../../utils/formatNumber';
 
 OrgmanegementAddForm.propTypes = {
   isEdit: PropTypes.bool,
@@ -32,11 +28,13 @@ const stateAlldata = [
   { name: "UP" }
 ];
 
-export default function OrgmanegementAddForm({ isEdit = false, data }) {
+export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
+
+  console.log(orgdata)
   const navigate = useNavigate();
 
-  const { createDesignation, isLoading: designationIsLoading } = useCreateDesignation();
-  const { updateDesignation, isLoading: updatedesignationIsLoading } = useUpdateDesignationById();
+  const { createOrgmaneger, isLoading: orgmanegerIsLoading } = useCreateOrgmaneger();
+  const { updateOrgmaneger, isLoading: updateorgmanegerIsLoading } = useUpdateOrgmanegerById();
 
   const NewDesignationSchema = Yup.object().shape({
     name: Yup.string().required('Designation Name is required'),
@@ -49,15 +47,16 @@ export default function OrgmanegementAddForm({ isEdit = false, data }) {
 
   const defaultValues = useMemo(
     () => ({
-      _id: data?._id || '',
-      name: data?.name || "",
-      contact_no: data?.contact_no || '',
-      email_id: data?.email_id || "",
-      city: data?.city || "",
-      state: data?.state || "",
-      address: data?.address || ""
+      _id: orgdata?._id || '',
+      name: orgdata?.name || "",
+      contact_no: orgdata?.contact_no || '',
+      email_id: orgdata?.email_id || "",
+      city: orgdata?.city || "",
+      state: orgdata?.state || "",
+      org_logo: orgdata?.org_logo || "",
+      address: orgdata?.address || ""
     }),
-    [data]
+    [orgdata]
   );
 
   const methods = useForm({
@@ -72,50 +71,55 @@ export default function OrgmanegementAddForm({ isEdit = false, data }) {
     formState: { isSubmitting },
   } = methods;
 
-  const { data: departmentAlldata, isLoading: departmentIsLoading } = useGetAllDepartmentStatus();
 
   useEffect(() => {
-    if (isEdit && data) {
+    if (isEdit && orgdata) {
       reset(defaultValues);
     }
     if (!isEdit) {
       reset(defaultValues);
     }
-  }, [isEdit, data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEdit, orgdata]);
 
-  if (departmentIsLoading) return <LoadingScreen />;
+  if (orgmanegerIsLoading) return <LoadingScreen />;
 
-  const onSubmit = async (_data) => {
+  const onSubmit = async (data) => {
     try {
-      const payload = {
-        id: data?._id,
-        name: data?.name,
-        contact_no: data?.contact_no,
-        email_id: data?.email_id,
-        city: data?.city,
-        state: data?.state,
-        address: data?.address
-      };
-
-      console.log(payload);
-
-      // if (isEdit) {
-      //   updateDesignation(payload, {
-      //     onSuccess: () => closeIt(),
-      //   });
-      // } else {
-      //   createDesignation(payload, {
-      //     onSuccess: () => closeIt(),
-      //   });
-      // }
+      const payload = new FormData();
+      payload.set('id', defaultValues?._id);
+      payload.append('org_logo', data.org_logo);
+      payload.set('name', data?.name);
+      payload.set('contact_no', data?.contact_no);
+      payload.set('email_id', data?.email_id);
+      payload.set('city', data?.city);
+      payload.set('state', data?.state);
+      payload.set('address', data?.address);
+      if (!isEdit) {
+        createOrgmaneger(payload, {
+          onSuccess: () => closeIt(),
+        });
+      } else {
+        updateOrgmaneger(payload, {
+          onSuccess: () => closeIt(),
+        });
+      }
     } catch (error) {
       console.error('error', error);
     }
   };
-  
-  const handleDrop = () => {
-   console.log("New Data")
-  };
+
+
+  const handleDrop = (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    const newFile = Object.assign(file, {
+      preview: URL.createObjectURL(file),
+    });
+    if (file) {
+      setValue('org_logo', newFile, { shouldValidate: true });
+    }
+
+  }
 
 
   const closeIt = () => {
@@ -126,13 +130,12 @@ export default function OrgmanegementAddForm({ isEdit = false, data }) {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
           <Card sx={{ pt: 10, pb: 5, px: 3 }}>
             <Box sx={{ mb: 5 }}>
               <RHFUploadAvatar
-                name="logo"
+                name="org_logo"
                 maxSize={3145728}
                 onDrop={handleDrop}
                 helperText={
@@ -191,7 +194,7 @@ export default function OrgmanegementAddForm({ isEdit = false, data }) {
         <LoadingButton
           type="submit"
           variant="contained"
-          loading={isSubmitting || designationIsLoading || updatedesignationIsLoading}
+          loading={isSubmitting || orgmanegerIsLoading || updateorgmanegerIsLoading}
         >
           {isEdit ? 'Update Now' : 'Create Now'}
         </LoadingButton>

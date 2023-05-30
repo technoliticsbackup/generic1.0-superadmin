@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import { OrgmanegementAddForm } from '../../../sections/@dashboard/orgmanegement';
-import { useGetOneDesignationById } from '../../../services/designationServices';
+import { useGetOneOrgmanegerById } from '../../../services/orgmanegerServices';
 import BlankPage from '../BlankPage';
 
 export default function OrgmanegementEditForm() {
@@ -14,11 +14,12 @@ export default function OrgmanegementEditForm() {
 
   const { id } = useParams();
 
-  const { data, isLoading, isError } = useGetOneDesignationById(id);
+  const { data, isLoading, isError } = useGetOneOrgmanegerById(id);
 
   if (isLoading) return <LoadingScreen />;
 
   if (isError) return <BlankPage />;
+  
   return (
     <>
       <Helmet>
@@ -40,7 +41,7 @@ export default function OrgmanegementEditForm() {
           ]}
         />
 
-        <OrgmanegementAddForm data={data} isEdit />
+        <OrgmanegementAddForm orgdata={data} isEdit />
       </Container>
     </>
   );

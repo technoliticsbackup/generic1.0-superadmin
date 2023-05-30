@@ -22,6 +22,9 @@ export const ResetPasswordPage = Loadable(lazy(() => import('../pages/auth/Reset
 
 
 //New PACKEGE
+
+export const GeneralAppPage = Loadable(lazy(() => import('../pages/dashboard/GeneralAppPage')));
+
 export const StaffChangePassword = Loadable(
   lazy(() => import('../pages/dashboard/staff/StaffChangePassword'))
 );
@@ -71,9 +74,13 @@ export const OrgmanegementDetailsPage = Loadable(
   lazy(() => import('../pages/dashboard/orgmanegement/OrgmanegementDetailsPage'))
 );
 
+export const StaffCreatePage = Loadable(
+  lazy(() => import('../pages/dashboard/orgmanegement/staff/StaffCreatePage'))
+);
+
+
 
 // DASHBOARD: GENERAL
-export const GeneralAppPage = Loadable(lazy(() => import('../pages/dashboard/GeneralAppPage')));
 export const GeneralEcommercePage = Loadable(
   lazy(() => import('../pages/dashboard/GeneralEcommercePage'))
 );

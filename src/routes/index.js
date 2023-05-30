@@ -140,7 +140,8 @@ import {
   OrgmanegementListPage,
   OrgmanegementCreatePage,
   OrgmanegementEditForm,
-  OrgmanegementDetailsPage
+  OrgmanegementDetailsPage,
+  StaffCreatePage,
 } from './elements';
 
 
@@ -234,6 +235,7 @@ export default function Router() {
             { path: 'new', element: <OrgmanegementCreatePage /> },
             { path: 'edit/:id', element: <OrgmanegementEditForm /> },
             { path: ':id', element: <OrgmanegementDetailsPage /> },
+            { path: 'addstaff/:id', element: <StaffCreatePage /> },
           ],
         },
 
