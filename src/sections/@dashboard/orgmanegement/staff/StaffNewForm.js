@@ -170,7 +170,11 @@ export default function StaffNewForm({ isEdit = false, id }) {
                                 ))}
                             </RHFSelect> : null}
 
-                            <RHFTextField name="contact_no" label="Contact No" />
+                            <RHFTextField type="number"
+                                onInput={(e) => {
+                                    e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10)
+                                }}
+                                name="contact_no" label="Contact No" />
                             <RHFTextField name="email_id" label="Email ID" />
                             <RHFTextField name="password" type="password" label="Password" />
                         </Box>

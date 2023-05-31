@@ -85,7 +85,7 @@ export default function StaffNewForm({ isEdit = false, currentUser }) {
   }, [isEdit, currentUser]);
 
   const { data: departmentAlldata, } = useGetAllDepartmentStatus();
-  const { data: designationAlldata, refetch: fetchDesignations } = useGetAllDesignationStatusAndDepartment(departmentFor);   
+  const { data: designationAlldata, refetch: fetchDesignations } = useGetAllDesignationStatusAndDepartment(departmentFor);
 
 
   const onSubmit = async (data) => {
@@ -128,7 +128,7 @@ export default function StaffNewForm({ isEdit = false, currentUser }) {
 
   const onSetDepartmentFor = (value) => {
     setDepartmentFor(value)
-    setValue("department",value)
+    setValue("department", value)
 
     fetchDesignations(value)
   }
@@ -196,7 +196,9 @@ export default function StaffNewForm({ isEdit = false, currentUser }) {
               </RHFSelect> : null}
 
 
-              <RHFTextField name="contact_no" label="Contact No" />
+              <RHFTextField onInput={(e) => {
+                e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10)
+              }} type="number" name="contact_no" label="Contact No" />
               <RHFTextField name="email_id" label="Email ID" />
               <RHFTextField name="password" type="password" label="Password" />
             </Box>
