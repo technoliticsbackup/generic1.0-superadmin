@@ -65,6 +65,11 @@ export default function NavSectionVertical({ isCollapse = false, ...other }) {
           data={{ title: 'Organization Management', path: PATH_DASHBOARD.orgmanagment.list, icon: ICONS.user }}
           depth={1}
         />
+           <NavList
+          data={{ title: 'Institution Management', path: PATH_DASHBOARD.instmanagment.list, icon: ICONS.user }}
+          depth={1}
+        />
+
       </List> : null}
 
       {user?.designations.department && user?.designations.designation ? (

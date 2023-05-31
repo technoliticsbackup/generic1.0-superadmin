@@ -71,8 +71,25 @@ export const OrgmanegementDetailsPage = Loadable(
   lazy(() => import('../pages/dashboard/orgmanegement/OrgmanegementDetailsPage'))
 );
 
-export const StaffCreatePage = Loadable(
+export const OrgStaffCreatePage = Loadable(
   lazy(() => import('../pages/dashboard/orgmanegement/staff/StaffCreatePage'))
+);
+
+export const InstmanegementListPage = Loadable(
+  lazy(() => import('../pages/dashboard/instmanegement/InstmanegementListPage'))
+);
+export const InstmanegementCreatePage = Loadable(
+  lazy(() => import('../pages/dashboard/instmanegement/InstmanegementCreatePage'))
+);
+export const InstmanegementEditForm = Loadable(
+  lazy(() => import('../pages/dashboard/instmanegement/InstmanegementEditForm'))
+);
+export const InstmanegementDetailsPage = Loadable(
+  lazy(() => import('../pages/dashboard/instmanegement/InstmanegementDetailsPage'))
+);
+
+export const InstStaffCreatePage = Loadable(
+  lazy(() => import('../pages/dashboard/instmanegement/staff/StaffCreatePage'))
 );
 
 

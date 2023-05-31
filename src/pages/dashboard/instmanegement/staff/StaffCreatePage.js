@@ -8,7 +8,7 @@ import { PATH_DASHBOARD } from '../../../../routes/paths';
 import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs';
 import { useSettingsContext } from '../../../../components/settings';
 // sections
-import StaffNewForm from '../../../../sections/@dashboard/orgmanegement/staff/StaffNewForm';
+import StaffNewForm from '../../../../sections/@dashboard/instmanegement/staff/StaffNewForm';
 
 // ----------------------------------------------------------------------
 
@@ -31,8 +31,8 @@ export default function UserCreatePage() {
               href: PATH_DASHBOARD.root,
             },
             {
-              name: 'Organization',
-              href: PATH_DASHBOARD.orgmanagment.list,
+              name: 'Institution',
+              href: PATH_DASHBOARD.instmanagment.list,
             },
             { name: 'New staff' },
           ]}

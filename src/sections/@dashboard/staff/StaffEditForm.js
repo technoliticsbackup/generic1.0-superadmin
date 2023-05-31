@@ -192,7 +192,10 @@ export default function StaffNewEditForm({ isEdit = false, currentUser }) {
               </RHFSelect> : null}
 
 
-              <RHFTextField name="contact_no" label="Contact No" />
+              <RHFTextField type="number"
+                                onInput={(e) => {
+                                    e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10)
+                                }} name="contact_no" label="Contact No" />
               <RHFTextField name="email_id" label="Email ID" />
             </Box>
 

@@ -10,14 +10,14 @@ import FormProvider, { RHFSelect, RHFTextField, RHFUploadAvatar } from '../../..
 import LoadingScreen from '../../../components/loading-screen';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import {
-  useCreateOrgmaneger,
-  useUpdateOrgmanegerById,
-} from '../../../services/orgmanegerServices';
+  useCreateInstmaneger,
+  useUpdateInstmanegerById,
+} from '../../../services/instmanegerServices';
 import { fData } from '../../../utils/formatNumber';
 
-OrgmanegementAddForm.propTypes = {
+InstmanegementAddForm.propTypes = {
   isEdit: PropTypes.bool,
-  orgdata: PropTypes.func,
+  instdata: PropTypes.func,
 };
 
 const stateAlldata = [
@@ -26,13 +26,13 @@ const stateAlldata = [
   { name: "UP" }
 ];
 
-export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
+export default function InstmanegementAddForm({ isEdit = false, instdata }) {
 
-  console.log(orgdata)
+  console.log(instdata)
   const navigate = useNavigate();
 
-  const { createOrgmaneger, isLoading: orgmanegerIsLoading } = useCreateOrgmaneger();
-  const { updateOrgmaneger, isLoading: updateorgmanegerIsLoading } = useUpdateOrgmanegerById();
+  const { createInstmaneger, isLoading: instmanegerIsLoading } = useCreateInstmaneger();
+  const { updateInstmaneger, isLoading: updateinstmanegerIsLoading } = useUpdateInstmanegerById();
 
   const NewDesignationSchema = Yup.object().shape({
     name: Yup.string().required('Designation Name is required'),
@@ -45,17 +45,17 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
 
   const defaultValues = useMemo(
     () => ({
-      _id: orgdata?._id || '',
-      name: orgdata?.name || "",
-      contact_no: orgdata?.contact_no || '',
-      email_id: orgdata?.email_id || "",
-      city: orgdata?.city || "",
-      state: orgdata?.state || "",
-      org_logo: orgdata?.org_logo || "",
-      address: orgdata?.address || ""
+      _id: instdata?._id || '',
+      name: instdata?.name || "",
+      contact_no: instdata?.contact_no || '',
+      email_id: instdata?.email_id || "",
+      city: instdata?.city || "",
+      state: instdata?.state || "",
+      inst_logo: instdata?.inst_logo || "",
+      address: instdata?.address || ""
     }),
-       // eslint-disable-next-line react-hooks/exhaustive-deps
-    [orgdata]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [instdata]
   );
 
   const methods = useForm({
@@ -72,22 +72,22 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
 
 
   useEffect(() => {
-    if (isEdit && orgdata) {
+    if (isEdit && instdata) {
       reset(defaultValues);
     }
     if (!isEdit) {
       reset(defaultValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit, orgdata]);
+  }, [isEdit, instdata]);
 
-  if (orgmanegerIsLoading) return <LoadingScreen />;
+  if (instmanegerIsLoading) return <LoadingScreen />;
 
   const onSubmit = async (data) => {
     try {
       const payload = new FormData();
       payload.set('id', defaultValues?._id);
-      payload.append('org_logo', data.org_logo);
+      payload.append('inst_logo', data.inst_logo);
       payload.set('name', data?.name);
       payload.set('contact_no', data?.contact_no);
       payload.set('email_id', data?.email_id);
@@ -95,11 +95,11 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
       payload.set('state', data?.state);
       payload.set('address', data?.address);
       if (!isEdit) {
-        createOrgmaneger(payload, {
+        createInstmaneger(payload, {
           onSuccess: () => closeIt(),
         });
       } else {
-        updateOrgmaneger(payload, {
+        updateInstmaneger(payload, {
           onSuccess: () => closeIt(),
         });
       }
@@ -115,7 +115,7 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
       preview: URL.createObjectURL(file),
     });
     if (file) {
-      setValue('org_logo', newFile, { shouldValidate: true });
+      setValue('inst_logo', newFile, { shouldValidate: true });
     }
 
   }
@@ -123,7 +123,7 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
 
   const closeIt = () => {
     reset();
-    navigate(PATH_DASHBOARD.orgmanagment.list);
+    navigate(PATH_DASHBOARD.instmanagment.list);
   };
 
 
@@ -134,7 +134,7 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
           <Card sx={{ pt: 10, pb: 5, px: 3 }}>
             <Box sx={{ mb: 5 }}>
               <RHFUploadAvatar
-                name="org_logo"
+                name="inst_logo"
                 maxSize={3145728}
                 onDrop={handleDrop}
                 helperText={
@@ -164,9 +164,9 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
             </Grid>
             <Grid item xs={12} md={6}>
               <RHFTextField type="number"
-                                onInput={(e) => {
-                                    e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10)
-                                }} name="contact_no" label="Contact No" />
+                onInput={(e) => {
+                  e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10)
+                }} name="contact_no" label="Contact No" />
             </Grid>
             <Grid item xs={12} md={6}>
               <RHFTextField name="email_id" label="Email Id" />
@@ -196,7 +196,7 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
         <LoadingButton
           type="submit"
           variant="contained"
-          loading={isSubmitting || orgmanegerIsLoading || updateorgmanegerIsLoading}
+          loading={isSubmitting || instmanegerIsLoading || updateinstmanegerIsLoading}
         >
           {isEdit ? 'Update Now' : 'Create Now'}
         </LoadingButton>

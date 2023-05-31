@@ -139,7 +139,12 @@ import {
   OrgmanegementCreatePage,
   OrgmanegementEditForm,
   OrgmanegementDetailsPage,
-  StaffCreatePage,
+  OrgStaffCreatePage,
+  InstmanegementListPage,
+  InstmanegementCreatePage,
+  InstmanegementEditForm,
+  InstmanegementDetailsPage,
+  InstStaffCreatePage,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -231,7 +236,19 @@ export default function Router() {
             { path: 'new', element: <OrgmanegementCreatePage /> },
             { path: 'edit/:id', element: <OrgmanegementEditForm /> },
             { path: ':id', element: <OrgmanegementDetailsPage /> },
-            { path: 'addstaff/:id', element: <StaffCreatePage /> },
+            { path: 'addstaff/:id', element: <OrgStaffCreatePage /> },
+          ],
+        },
+
+        {
+          path: 'instmanagment',
+          children: [
+            { element: <Navigate to="/dashboard/instmanagment/list" replace />, index: true },
+            { path: 'list', element: <InstmanegementListPage /> },
+            { path: 'new', element: <InstmanegementCreatePage /> },
+            { path: 'edit/:id', element: <InstmanegementEditForm /> },
+            { path: ':id', element: <InstmanegementDetailsPage /> },
+            { path: 'addstaff/:id', element: <InstStaffCreatePage /> },
           ],
         },
 
