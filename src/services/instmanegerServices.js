@@ -15,6 +15,19 @@ export const useGetAllInstmaneger = () => {
   };
 };
 
+export const useGetAllOrgList = () => {
+  const { data, isError, isLoading } = useQuery(
+    ['_getAllOrgList'],
+    () => axiosInstance.get('/org/all'),
+    { enabled: true }
+  );
+  return {
+    data: data?.data?.data,
+    isLoading,
+    isError,
+  };
+};
+
 export const useGetAllInstmanegerStatus = () => {
   const { data, isError, isLoading } = useQuery(
     ['_getGetAllInstmanegerStatus'],

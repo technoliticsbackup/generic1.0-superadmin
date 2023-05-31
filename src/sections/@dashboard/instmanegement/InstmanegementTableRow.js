@@ -18,7 +18,7 @@ export default function InstmanegementTableRow({ row, index, onEditRow, onAddSta
   const [openPopover, setOpenPopover] = useState(null);
   const [statusPage, setStatusPage] = useState(null);
 
-  const { _id, name, contact_no, email_id, city, state, address, org_logo, status } = row;
+  const { _id, name, contact_no, email_id, city, state, address, inst_logo, status } = row;
 
   const { updateStatusInstmaneger } = useUpdateInstmanegerStatusById();
 
@@ -54,11 +54,11 @@ export default function InstmanegementTableRow({ row, index, onEditRow, onAddSta
         <TableCell
           sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
         >
-          {org_logo ? (
+          {inst_logo ? (
             <Image
               disabledEffect
               alt={name}
-              src={org_logo}
+              src={inst_logo}
               sx={{ borderRadius: 1.5, width: 48, height: 48, mr: 2 }}
             />
           ) : (

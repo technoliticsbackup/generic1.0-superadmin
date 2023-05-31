@@ -12,6 +12,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import {
   useCreateInstmaneger,
   useUpdateInstmanegerById,
+  useGetAllOrgList
 } from '../../../services/instmanegerServices';
 import { fData } from '../../../utils/formatNumber';
 
@@ -26,6 +27,13 @@ const stateAlldata = [
   { name: "UP" }
 ];
 
+const inst_type = [
+  "SCHOOL",
+  "PRESCHOOL",
+  "COLLEGE",
+  "COACHING"
+]
+
 export default function InstmanegementAddForm({ isEdit = false, instdata }) {
 
   console.log(instdata)
@@ -34,11 +42,16 @@ export default function InstmanegementAddForm({ isEdit = false, instdata }) {
   const { createInstmaneger, isLoading: instmanegerIsLoading } = useCreateInstmaneger();
   const { updateInstmaneger, isLoading: updateinstmanegerIsLoading } = useUpdateInstmanegerById();
 
+  const { data: orgAlldata } =   useGetAllOrgList();
+
+
   const NewDesignationSchema = Yup.object().shape({
     name: Yup.string().required('Designation Name is required'),
+    inst_type: Yup.string().required('Inst Type is required'),
     contact_no: Yup.string().required('Phone number is required'),
     email_id: Yup.string().required('Email is required').email('Email must be a valid email address'),
     city: Yup.string().required('City is required'),
+    org_id: Yup.string().required('Org is required'),
     state: Yup.string().required('State is required'),
     address: Yup.string().required('Address is required'),
   });
@@ -52,7 +65,9 @@ export default function InstmanegementAddForm({ isEdit = false, instdata }) {
       city: instdata?.city || "",
       state: instdata?.state || "",
       inst_logo: instdata?.inst_logo || "",
-      address: instdata?.address || ""
+      address: instdata?.address || "",
+      inst_type: instdata?.inst_type,
+      org_id: instdata?.org_id,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [instdata]
@@ -94,6 +109,9 @@ export default function InstmanegementAddForm({ isEdit = false, instdata }) {
       payload.set('city', data?.city);
       payload.set('state', data?.state);
       payload.set('address', data?.address);
+      payload.set('inst_type', data?.inst_type);
+      payload.set('org_id', data?.org_id);
+
       if (!isEdit) {
         createInstmaneger(payload, {
           onSuccess: () => closeIt(),
@@ -185,6 +203,29 @@ export default function InstmanegementAddForm({ isEdit = false, instdata }) {
                 ))}
               </RHFSelect>
             </Grid>
+
+            <Grid item xs={12} md={6}>
+              <RHFSelect native name="inst_type" label="Select Inst Type" placeholder="Select Inst Type">
+                <option value="" />
+                {inst_type?.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </RHFSelect>
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <RHFSelect native name="org_id" label="Select Org" placeholder="Select Org">
+                <option value="" />
+                {orgAlldata?.map((item, index) => (
+                  <option key={index} value={item?._id}>
+                    {item?.name}
+                  </option>
+                ))}
+              </RHFSelect>
+            </Grid>
+
             <Grid item xs={12} md={6}>
               <RHFTextField name="address" label="Address" />
             </Grid>
