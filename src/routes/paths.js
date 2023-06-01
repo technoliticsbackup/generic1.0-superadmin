@@ -81,8 +81,10 @@ export const PATH_DASHBOARD = {
     edit: (id) => path(ROOTS_DASHBOARD, `/instmanagment/edit/${id}/`),
     view: (id) => path(ROOTS_DASHBOARD, `/instmanagment/${id}`),
     addstaff: (id) => path(ROOTS_DASHBOARD, `/instmanagment/addstaff/${id}`),
+    editstaff: (id) => path(ROOTS_DASHBOARD, `/instmanagment/editstaff/${id}`),
+    changepassword: (id) => path(ROOTS_DASHBOARD, `/instmanagment/changepassword/${id}`),
   },
-  
+
   general: {
     app: path(ROOTS_DASHBOARD, '/app'),
     ecommerce: path(ROOTS_DASHBOARD, '/ecommerce'),

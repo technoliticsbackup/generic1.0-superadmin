@@ -145,6 +145,8 @@ import {
   InstmanegementEditForm,
   InstmanegementDetailsPage,
   InstStaffCreatePage,
+  InstStaffEditPage,
+  InstStaffChangePassword
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -249,6 +251,8 @@ export default function Router() {
             { path: 'edit/:id', element: <InstmanegementEditForm /> },
             { path: ':id', element: <InstmanegementDetailsPage /> },
             { path: 'addstaff/:id', element: <InstStaffCreatePage /> },
+            { path: 'editstaff/:id', element: <InstStaffEditPage /> },
+            { path: 'changepassword/:id', element: <InstStaffChangePassword /> },
           ],
         },
 

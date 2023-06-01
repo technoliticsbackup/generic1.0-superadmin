@@ -18,19 +18,22 @@ import {
 } from '../../../components/table';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import { InstmanegementTableRow, InstmanegementToolbar } from '../../../sections/@dashboard/instmanegement';
-import { useGetAllInstmaneger } from '../../../services/instmanegerServices';
+import { useGetAllInstmaneger, useDeleteInstById } from '../../../services/instmanegerServices';
 import BlankPage from '../BlankPage';
 
 
 const TABLE_HEAD = [
   { id: 'index', label: 'SNO', align: 'left' },
   { id: 'org_logo', label: 'LOGO', align: 'left' },
+  { id: 'inst_code', label: 'INST CODE', align: 'left' },
   { id: 'name', label: 'NAME', align: 'left' },
+  { id: 'org_name', label: 'ORGANIZATION', align: 'left' },
   { id: 'contact_no', label: 'CONTACT NO', align: 'left' },
   { id: 'email_id', label: 'EMAIL ID', align: 'left' },
   { id: 'city', label: 'CITY', align: 'left' },
-  { id: 'state', label: 'STATE', align: 'left' },
-  { id: 'address', label: 'ADDRESS', align: 'left' },
+  { id: 'student', label: 'STUDENTS', align: 'left' },
+  { id: 'staff', label: 'STAFF', align: 'left' },
+  { id: 'validtill', label: 'VALID TILL', align: 'left' },
   { id: 'status', label: 'STATUS', align: 'left' },
   { id: '' },
 ];
@@ -69,6 +72,8 @@ export default function InstmanegementListPage() {
     isError: designationIsError,
   } = useGetAllInstmaneger();
 
+  const { deleteInst } = useDeleteInstById();
+
   useEffect(() => {
     if (data) {
       setTableData(data);
@@ -98,6 +103,17 @@ export default function InstmanegementListPage() {
 
   const handleEditRow = (id) => {
     navigate(PATH_DASHBOARD.instmanagment.edit(id));
+  };
+
+  const handleViewDetail = (id) => {
+    navigate(PATH_DASHBOARD.instmanagment.view(id));
+  };
+
+
+  const handleDeleteRow = (id) => {
+    deleteInst(id)
+    const filterData = tableData.filter((item) => item._id !== id);
+    setTableData(filterData);
   };
 
   const handleAddStaff = (id) => {
@@ -161,7 +177,10 @@ export default function InstmanegementListPage() {
                         row={row}
                         index={index}
                         onEditRow={() => handleEditRow(row._id)}
-                        onAddStaff={()=> handleAddStaff(row._id)}
+                        onViewDetail={()=> handleViewDetail(row._id)}
+                        onDeleteRow={() => handleDeleteRow(row._id)}
+                        onAddStaff={() => handleAddStaff(row._id)}
+
                       />
                     ))}
 

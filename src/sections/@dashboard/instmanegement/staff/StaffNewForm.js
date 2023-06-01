@@ -52,7 +52,7 @@ export default function StaffNewForm({ isEdit = false, id }) {
             contact_no: '',
             designation: '',
             username: '',
-            org_id: ''
+            inst_id: ''
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         []
@@ -90,7 +90,7 @@ export default function StaffNewForm({ isEdit = false, id }) {
             formData.set('email_id', data.email_id);
             formData.set('contact_no', data.contact_no);
             formData.set('designation_id', data.designation);
-            formData.set('org_id', id);
+            formData.set('inst_id', id);
             formData.set('password', data.password);
             createInstStaff(formData, {
                 onSuccess: () => closeIt(),

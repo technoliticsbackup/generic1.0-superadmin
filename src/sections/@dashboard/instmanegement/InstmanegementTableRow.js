@@ -12,13 +12,14 @@ InstmanegementTableRow.propTypes = {
   index: PropTypes.number,
   onEditRow: PropTypes.func,
   onAddStaff: PropTypes.func,
+  onViewDetail: PropTypes.func,
 };
 
-export default function InstmanegementTableRow({ row, index, onEditRow, onAddStaff }) {
+export default function InstmanegementTableRow({ row, index, onEditRow, onAddStaff, onViewDetail }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [statusPage, setStatusPage] = useState(null);
 
-  const { _id, name, contact_no, email_id, city, state, address, inst_logo, status } = row;
+  const { _id, name, code, org_name, contact_no, email_id, city, instadminusers, inst_logo, status } = row;
 
   const { updateStatusInstmaneger } = useUpdateInstmanegerStatusById();
 
@@ -32,6 +33,8 @@ export default function InstmanegementTableRow({ row, index, onEditRow, onAddSta
   useEffect(() => {
     if (status === 'Active') {
       setStatusPage('Active');
+    } else if (status === "Expired") {
+      setStatusPage('Expired');
     } else {
       setStatusPage('InActive');
     }
@@ -45,6 +48,7 @@ export default function InstmanegementTableRow({ row, index, onEditRow, onAddSta
     };
     updateStatusInstmaneger(payload);
   };
+
 
   return (
     <>
@@ -71,16 +75,24 @@ export default function InstmanegementTableRow({ row, index, onEditRow, onAddSta
           )}
         </TableCell>
 
+        <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
+          {code}
+        </TableCell>
 
-        <TableCell style={{ cursor: 'pointer' }}>
+        <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
           {name}
         </TableCell>
 
-        <TableCell style={{ cursor: 'pointer' }}>
+        <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
+          {org_name}
+        </TableCell>
+
+
+        <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
           {contact_no}
         </TableCell>
 
-        <TableCell style={{ cursor: 'pointer' }}>
+        <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
           {email_id}
         </TableCell>
 
@@ -89,12 +101,16 @@ export default function InstmanegementTableRow({ row, index, onEditRow, onAddSta
         </TableCell>
 
         <TableCell style={{ cursor: 'pointer' }}>
-          {state}
+
         </TableCell>
 
         <TableCell style={{ cursor: 'pointer' }}>
-          {address}
+          {instadminusers}
         </TableCell>
+        <TableCell style={{ cursor: 'pointer' }}>
+
+        </TableCell>
+
 
         <TableCell align="left">
           <Select
@@ -106,6 +122,7 @@ export default function InstmanegementTableRow({ row, index, onEditRow, onAddSta
           >
             <MenuItem value="Active">Active</MenuItem>
             <MenuItem value="InActive">InActive</MenuItem>
+            <MenuItem value="Expired">Expired</MenuItem>
           </Select>
         </TableCell>
 

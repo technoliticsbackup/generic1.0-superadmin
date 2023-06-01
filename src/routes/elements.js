@@ -92,6 +92,14 @@ export const InstStaffCreatePage = Loadable(
   lazy(() => import('../pages/dashboard/instmanegement/staff/StaffCreatePage'))
 );
 
+export const InstStaffEditPage = Loadable(
+  lazy(() => import('../pages/dashboard/instmanegement/staff/StaffEditPage'))
+);
+
+export const InstStaffChangePassword = Loadable(
+  lazy(() => import('../pages/dashboard/instmanegement/staff/ChangePassword'))
+);
+
 
 // DASHBOARD: GENERAL
 export const GeneralAppPage = Loadable(lazy(() => import('../pages/dashboard/GeneralAppPage')));

@@ -1,33 +1,33 @@
 import { Container } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import CustomBreadcrumbs from '../../../components/custom-breadcrumbs';
-import LoadingScreen from '../../../components/loading-screen';
-import { useSettingsContext } from '../../../components/settings';
-import { PATH_DASHBOARD } from '../../../routes/paths';
-import { InstmanegementAddForm } from '../../../sections/@dashboard/instmanegement';
-import { useGetOneInstmanegerById } from '../../../services/instmanegerServices';
-import BlankPage from '../BlankPage';
+import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs';
+import LoadingScreen from '../../../../components/loading-screen';
+import { useSettingsContext } from '../../../../components/settings';
+import { PATH_DASHBOARD } from '../../../../routes/paths';
+import StaffEditForm from '../../../../sections/@dashboard/instmanegement/staff/StaffEditForm';
+import { useGetOneStaffById } from '../../../../services/instmanegerServices';
 
 export default function InstmanegementEditForm() {
   const { themeStretch } = useSettingsContext();
 
   const { id } = useParams();
 
-  const { data, isLoading, isError } = useGetOneInstmanegerById(id);
+  const { data, isLoading, isError } = useGetOneStaffById(id);
 
   if (isLoading) return <LoadingScreen />;
 
-  if (isError) return <BlankPage />;
+  console.log("data", data)
+
   
   return (
     <>
       <Helmet>
-        <title>Institution : Edit Institution</title>
+        <title>Edit Staff : Edit Edit Staff</title>
       </Helmet>
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="Edit Institution"
+          heading="Edit Staff"
           links={[
             {
               name: 'Dashboard',
@@ -41,7 +41,7 @@ export default function InstmanegementEditForm() {
           ]}
         />
 
-        <InstmanegementAddForm instdata={data} isEdit />
+        <StaffEditForm currentUser={data} />
       </Container>
     </>
   );
