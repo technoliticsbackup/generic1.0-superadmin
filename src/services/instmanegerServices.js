@@ -15,6 +15,19 @@ export const useGetAllInstmaneger = () => {
   };
 };
 
+export const useGetAllInstmanegerByOrgId = (orgId) => {
+  const { data, isError, isLoading } = useQuery(
+    ['_getGetAllInstmaneger',orgId],
+    () => axiosInstance.get(`/inst/allByorgId/${orgId}`),
+    { enabled: !!orgId }
+  );
+  return {
+    data: data?.data?.data,
+    isLoading,
+    isError,
+  };
+};
+
 export const useGetAllOrgList = () => {
   const { data, isError, isLoading } = useQuery(
     ['_getAllOrgList'],
@@ -42,8 +55,8 @@ export const useGetAllInstmanegerStatus = () => {
 };
 
 export const useGetOneInstmanegerById = (id) => {
-  const { data, isError, isLoading } = useQuery(['_getOneInstmanegerById'], () =>
-    axiosInstance.get(`/inst/one/${id}`)
+  const { data, isError, isLoading } = useQuery(['_getOneInstmanegerById', id], () =>
+    axiosInstance.get(`/inst/one/${id}`), { enabled: !!id }
   );
   return {
     data: data?.data?.data,
@@ -128,6 +141,19 @@ export const useUpdateInstmanegerStatusById = () => {
   };
 };
 
+export const useGetAllDesignationTypeAdmin = () => {
+  const { data, isError, isLoading } = useQuery(
+    ['_getAllDesignationTypeAdmin'],
+    () => axiosInstance.get('/inst/allTypeAdmin'),
+    { enabled: true }
+  );
+  return {
+    data: data?.data?.designation,
+    isLoading,
+    isError,
+  };
+};
+
 export const useDeleteInstById = () => {
   const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
@@ -176,12 +202,12 @@ export const useCreateInstStaff = () => {
   };
 };
 
-export const useGetAllStaff = () => {
+export const useGetAllStaff = (instId) => {
   const { data, isError, isLoading } = useQuery(
-    ['_getGetAllStaff'],
-    () => axiosInstance.get('/instadminuser/all'),
+    ['_getGetAllStaff', instId],
+    () => axiosInstance.get(`/instadminuser/allByInstId/${instId}`),
     {
-      enabled: true,
+      enabled: !!instId,
     }
   );
   return {
@@ -218,8 +244,8 @@ export const useUpdateStaffById = () => {
 };
 
 export const useGetOneStaffById = (id) => {
-  const { data, isError, isLoading } = useQuery(['_getOneStaffById'], () =>
-    axiosInstance.get(`/instadminuser/one/${id}`)
+  const { data, isError, isLoading } = useQuery(['_getOneStaffById',id], () =>
+    axiosInstance.get(`/instadminuser/one/${id}`),{enabled : !!id}
   );
   return {
     data: data?.data?.data,
@@ -300,3 +326,4 @@ export const useDeleteStaffById = () => {
   );
   return { DeleteStaff: mutate };
 };
+

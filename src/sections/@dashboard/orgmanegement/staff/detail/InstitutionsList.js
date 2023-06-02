@@ -1,12 +1,8 @@
-import { Button, Card, Container, Divider, Table, TableBody, TableContainer } from '@mui/material';
+import { Card, Divider, Table, TableBody, TableContainer } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import CustomBreadcrumbs from '../../../components/custom-breadcrumbs';
-import Iconify from '../../../components/iconify';
-import LoadingScreen from '../../../components/loading-screen';
-import Scrollbar from '../../../components/scrollbar';
-import { useSettingsContext } from '../../../components/settings';
+import { useNavigate } from 'react-router-dom';
+import LoadingScreen from '../../../../../components/loading-screen';
+import Scrollbar from '../../../../../components/scrollbar';
 import {
   TableEmptyRows,
   TableHeadCustom,
@@ -15,33 +11,40 @@ import {
   emptyRows,
   getComparator,
   useTable,
-} from '../../../components/table';
-import { PATH_DASHBOARD } from '../../../routes/paths';
-import { OrgmanegementTableRow, OrgmanegementToolbar } from '../../../sections/@dashboard/orgmanegement';
-import { useGetAllOrgmaneger } from '../../../services/orgmanegerServices';
-import BlankPage from '../BlankPage';
+} from '../../../../../components/table';
+import { PATH_DASHBOARD } from '../../../../../routes/paths';
+import { useDeleteInstById, useGetAllInstmanegerByOrgId } from '../../../../../services/instmanegerServices';
+import InstmanegementTableRow from "./InstmanegementTableRow";
+import InstmanegementToolbar from "./InstmanegementToolbar";
+import PropTypes from 'prop-types';
 
 
 const TABLE_HEAD = [
   { id: 'index', label: 'SNO', align: 'left' },
   { id: 'org_logo', label: 'LOGO', align: 'left' },
+  { id: 'inst_code', label: 'INST', align: 'left' },
   { id: 'name', label: 'NAME', align: 'left' },
-  { id: 'institutions', label: 'INST', align: 'left' },
+  { id: 'org_name', label: 'ORGANIZATION', align: 'left' },
   { id: 'contact_no', label: 'CONTACT', align: 'left' },
   { id: 'email_id', label: 'EMAIL ID', align: 'left' },
   { id: 'city', label: 'CITY', align: 'left' },
-  { id: 'valid_till', label: 'VALIDITY', align: 'left' },
+  { id: 'student', label: 'STUDENTS', align: 'left' },
+  { id: 'staff', label: 'STAFF', align: 'left' },
+  { id: 'validtill', label: 'VALIDITY', align: 'left' },
   { id: 'status', label: 'STATUS', align: 'left' },
   { id: '' },
 ];
-
 
 const headers = [
   { label: 'NAME', key: 'name' },
   { label: 'STATUS', key: 'status' },
 ];
 
-export default function OrgmanegementListPage() {
+InstitutionsList.propTypes = {
+  orgId: PropTypes.string,
+};
+
+export default function InstitutionsList({orgId}) {
   const {
     dense,
     page,
@@ -56,8 +59,6 @@ export default function OrgmanegementListPage() {
     onChangeRowsPerPage,
   } = useTable();
 
-  const { themeStretch } = useSettingsContext();
-
   const navigate = useNavigate();
 
   const [tableData, setTableData] = useState([]);
@@ -67,8 +68,9 @@ export default function OrgmanegementListPage() {
   const {
     data,
     isLoading: designationIsLoading,
-    isError: designationIsError,
-  } = useGetAllOrgmaneger();
+  } = useGetAllInstmanegerByOrgId(orgId);
+
+  const { deleteInst } = useDeleteInstById();
 
   useEffect(() => {
     if (data) {
@@ -90,7 +92,6 @@ export default function OrgmanegementListPage() {
 
   if (designationIsLoading) return <LoadingScreen />;
 
-  if (designationIsError) return <BlankPage />;
 
   const handleFilterName = (event) => {
     setPage(0);
@@ -98,50 +99,28 @@ export default function OrgmanegementListPage() {
   };
 
   const handleEditRow = (id) => {
-    navigate(PATH_DASHBOARD.orgmanagment.edit(id));
-  };
-
-  const handleAddStaff = (id) => {
-    navigate(PATH_DASHBOARD.orgmanagment.addstaff(id));
+    navigate(PATH_DASHBOARD.instmanagment.edit(id));
   };
 
   const handleViewDetail = (id) => {
-    navigate(PATH_DASHBOARD.orgmanagment.view(id));
+    navigate(PATH_DASHBOARD.instmanagment.view(id));
   };
 
-  const handleAddInstitute = (id) => {
-    navigate(PATH_DASHBOARD.instmanagment.create(id));
+
+  const handleDeleteRow = (id) => {
+    deleteInst(id)
+    const filterData = tableData.filter((item) => item._id !== id);
+    setTableData(filterData);
+  };
+
+  const handleAddStaff = (id) => {
+    navigate(PATH_DASHBOARD.instmanagment.addstaff(id));
   };
 
 
   return (
-    <>
-      <Helmet>
-        <title>Organization</title>
-      </Helmet>
-
-      <Container maxWidth={themeStretch ? false : 'lg'}>
-        <CustomBreadcrumbs
-          heading="Organization List"
-          links={[
-            { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Organization', href: PATH_DASHBOARD.orgmanagment.root },
-            { name: 'Organization List' },
-          ]}
-          action={
-            <Button
-              component={RouterLink}
-              to={PATH_DASHBOARD.orgmanagment.new}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Organization
-            </Button>
-          }
-        />
-
         <Card>
-          <OrgmanegementToolbar
+          <InstmanegementToolbar
             filterName={filterName}
             onFilterName={handleFilterName}
             headers={headers}
@@ -165,14 +144,15 @@ export default function OrgmanegementListPage() {
                   {dataFiltered
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => (
-                      <OrgmanegementTableRow
+                      <InstmanegementTableRow
                         key={row._id}
                         row={row}
                         index={index}
                         onEditRow={() => handleEditRow(row._id)}
-                        onAddStaff={()=> handleAddStaff(row._id)}
                         onViewDetail={()=> handleViewDetail(row._id)}
-                        onAddInstitute={()=> handleAddInstitute(row._id)}
+                        onDeleteRow={() => handleDeleteRow(row._id)}
+                        onAddStaff={() => handleAddStaff(row._id)}
+
                       />
                     ))}
 
@@ -197,8 +177,6 @@ export default function OrgmanegementListPage() {
             onChangeDense={onChangeDense}
           />
         </Card>
-      </Container>
-    </>
   );
 }
 

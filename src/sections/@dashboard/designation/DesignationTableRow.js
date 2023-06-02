@@ -1,6 +1,5 @@
-import { IconButton, MenuItem, TableCell, TableRow, Typography } from '@mui/material';
+import { IconButton, MenuItem, TableCell, TableRow } from '@mui/material';
 import Select from '@mui/material/Select';
-import { Stack } from '@mui/system';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import Iconify from '../../../components/iconify';
@@ -51,11 +50,7 @@ export default function DesignationTableRow({ row, index, onEditRow }) {
         <TableCell align="left">{index + 1}</TableCell>
 
         <TableCell>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Typography variant="subtitle2" noWrap>
-              {name}
-            </Typography>
-          </Stack>
+          {name}
         </TableCell>
 
         <TableCell align="left">

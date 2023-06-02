@@ -80,6 +80,7 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, '/instmanagment'),
     list: path(ROOTS_DASHBOARD, '/instmanagment/list'),
     new: path(ROOTS_DASHBOARD, '/instmanagment/new'),
+    create: (id) => path(ROOTS_DASHBOARD, `/instmanagment/create/${id}`),
     edit: (id) => path(ROOTS_DASHBOARD, `/instmanagment/edit/${id}/`),
     view: (id) => path(ROOTS_DASHBOARD, `/instmanagment/${id}`),
     addstaff: (id) => path(ROOTS_DASHBOARD, `/instmanagment/addstaff/${id}`),

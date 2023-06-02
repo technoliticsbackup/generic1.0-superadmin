@@ -15,7 +15,7 @@ export default function Detail() {
     <>
       <OrgmanegementDetail instdata={data} />
       <div style={{marginTop: 50}}>
-      <StaffList />
+      <StaffList orgId={data?._id} />
       </div>
       
     </>

@@ -1,4 +1,4 @@
-import { IconButton, MenuItem, TableCell, TableRow } from '@mui/material';
+import { IconButton, MenuItem, TableCell, TableRow, Typography } from '@mui/material';
 import Select from '@mui/material/Select';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
@@ -13,13 +13,15 @@ OrgmanegementTableRow.propTypes = {
   onEditRow: PropTypes.func,
   onAddStaff: PropTypes.func,
   onViewDetail: PropTypes.func,
+  onAddInstitute: PropTypes.func,
 };
 
-export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaff, onViewDetail }) {
+
+export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaff, onViewDetail, onAddInstitute }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [statusPage, setStatusPage] = useState(null);
 
-  const { _id, name, contact_no, email_id, city, state, address, org_logo, status } = row;
+  const { _id, org_logo, name, institutions, contact_no, email_id, city, valid_till, status } = row;
 
   const { updateStatusOrgmaneger } = useUpdateOrgmanegerStatusById();
 
@@ -73,28 +75,30 @@ export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaf
         </TableCell>
 
 
-        <TableCell onClick={()=> onViewDetail()} style={{ cursor: 'pointer' }}>
-          {name}
+        <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
+          <Typography variant="subtitle2" noWrap>
+            {name}
+          </Typography>
         </TableCell>
 
-        <TableCell onClick={()=> onViewDetail()} style={{ cursor: 'pointer' }}>
+        <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
+          {institutions}
+        </TableCell>
+
+        <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
           {contact_no}
         </TableCell>
 
-        <TableCell onClick={()=> onViewDetail()} style={{ cursor: 'pointer' }}>
+        <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
           {email_id}
         </TableCell>
 
-        <TableCell onClick={()=> onViewDetail()} style={{ cursor: 'pointer' }}>
+        <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
           {city}
         </TableCell>
 
         <TableCell style={{ cursor: 'pointer' }}>
-          {state}
-        </TableCell>
-
-        <TableCell style={{ cursor: 'pointer' }}>
-          {address}
+          {valid_till}
         </TableCell>
 
         <TableCell align="left">
@@ -121,7 +125,6 @@ export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaf
         open={openPopover}
         onClose={handleClosePopover}
         arrow="right-top"
-        sx={{ width: 160 }}
       >
         <MenuItem
           onClick={() => {
@@ -132,6 +135,16 @@ export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaf
           <Iconify icon="eva:edit-fill" />
           Edit
         </MenuItem>
+
+        <MenuItem
+          onClick={() => {
+            onAddInstitute();
+            handleClosePopover();
+          }}
+        >
+          <Iconify icon="cil:institution" />
+          Add Institution
+        </MenuItem>
         <MenuItem
           onClick={() => {
             onAddStaff();
@@ -139,7 +152,16 @@ export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaf
           }}
         >
           <Iconify icon="ri:user-add-line" />
-          Add Staff
+          Org User
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            onEditRow();
+            handleClosePopover();
+          }}
+        >
+          <Iconify icon="fluent-mdl2:delete" />
+          Delete
         </MenuItem>
       </MenuPopover>
     </>

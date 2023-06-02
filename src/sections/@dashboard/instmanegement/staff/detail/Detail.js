@@ -1,23 +1,20 @@
-import { useParams } from 'react-router-dom';
-import LoadingScreen from '../../../../../components/loading-screen';
-import { useGetOneInstmanegerById } from '../../../../../services/instmanegerServices';
+import PropTypes from 'prop-types';
 import InstmanegementDetail from './InstmanegementDetail';
 import StaffList from './StaffList';
 
-export default function Detail() {
-  const { id } = useParams();
 
-  const { data, isLoading } = useGetOneInstmanegerById(id);
+Detail.propTypes = {
+  data: PropTypes.string,
+};
 
-  if (isLoading) return <LoadingScreen />;
+export default function Detail({ data }) {
 
   return (
     <>
       <InstmanegementDetail instdata={data} />
-      <div style={{marginTop: 50}}>
-      <StaffList />
+      <div style={{ marginTop: 50 }}>
+        <StaffList instId={data?._id} />
       </div>
-      
     </>
   );
 }

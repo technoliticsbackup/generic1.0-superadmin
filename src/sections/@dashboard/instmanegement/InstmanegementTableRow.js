@@ -1,4 +1,4 @@
-import { IconButton, MenuItem, TableCell, TableRow } from '@mui/material';
+import { IconButton, MenuItem, TableCell, TableRow, Typography } from '@mui/material';
 import Select from '@mui/material/Select';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
@@ -79,12 +79,16 @@ export default function InstmanegementTableRow({ row, index, onEditRow, onAddSta
           {code}
         </TableCell>
 
-        <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
-          {name}
+        <TableCell onClick={() => onViewDetail()} sx={{ cursor: 'pointer', }}>
+          <Typography variant="subtitle2" noWrap>
+            {name}
+          </Typography>
         </TableCell>
 
         <TableCell onClick={() => onViewDetail()} style={{ cursor: 'pointer' }}>
-          {org_name}
+          <Typography variant="subtitle2" noWrap>
+            {org_name}
+          </Typography>
         </TableCell>
 
 
@@ -155,7 +159,7 @@ export default function InstmanegementTableRow({ row, index, onEditRow, onAddSta
           }}
         >
           <Iconify icon="ri:user-add-line" />
-          Add Staff
+          Inst User
         </MenuItem>
       </MenuPopover>
     </>

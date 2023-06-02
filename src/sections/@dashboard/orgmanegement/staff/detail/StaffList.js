@@ -15,7 +15,11 @@ import { PATH_DASHBOARD } from '../../../../../routes/paths';
 import { useDeleteStaffById, useGetAllStaff } from '../../../../../services/orgmanegerServices';
 import StaffTableRow from './StaffTableRow';
 import StaffToolbar from './StaffToolbar';
+import PropTypes from 'prop-types';
 
+InstmanegementListPage.propTypes = {
+  orgId: PropTypes.object,
+};
 
 const TABLE_HEAD = [
   { id: 'index', label: 'SNO', align: 'left' },
@@ -27,13 +31,12 @@ const TABLE_HEAD = [
   { id: '' },
 ];
 
-
 const headers = [
   { label: 'NAME', key: 'name' },
   { label: 'STATUS', key: 'status' },
 ];
 
-export default function InstmanegementListPage() {
+export default function InstmanegementListPage({ orgId }) {
   const {
     dense,
     page,
@@ -57,7 +60,7 @@ export default function InstmanegementListPage() {
 
   const {
     data
-  } = useGetAllStaff();
+  } = useGetAllStaff(orgId);
 
   const { deleteStaff } = useDeleteStaffById();
 

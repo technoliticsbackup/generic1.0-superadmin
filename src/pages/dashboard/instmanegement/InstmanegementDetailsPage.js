@@ -10,9 +10,13 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import CustomBreadcrumbs from '../../../components/custom-breadcrumbs';
 import { useSettingsContext } from '../../../components/settings';
 // sections
+import { useParams } from 'react-router-dom';
+import LoadingScreen from '../../../components/loading-screen';
+import { useGetOneInstmanegerById } from '../../../services/instmanegerServices';
 import {
   Detail,
 } from '../../../sections/@dashboard/instmanegement/staff/detail';
+
 
 // ----------------------------------------------------------------------
 
@@ -22,6 +26,11 @@ export default function InstmanegementDetailsPage() {
 
   const [currentTab, setCurrentTab] = useState('institution_detail');
 
+  const { id } = useParams();
+
+  const { data, isLoading } = useGetOneInstmanegerById(id);
+
+  if (isLoading) return <LoadingScreen />;
 
   return (
     <>
@@ -34,20 +43,21 @@ export default function InstmanegementDetailsPage() {
           heading="Institution Detail"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Institution', href: PATH_DASHBOARD.instmanagment.root }
+            { name: 'Institution', href: PATH_DASHBOARD.instmanagment.root },
+            { name: data?.name }
           ]}
         />
 
-        <Button variant={currentTab === "institution_detail" ? "contained" : "outlined"} onClick={()=> setCurrentTab("institution_detail")} color={currentTab === "institution_detail" ? "primary" : "inherit"} sx={{ mr: 2 }} >
+        <Button variant={currentTab === "institution_detail" ? "contained" : "outlined"} onClick={() => setCurrentTab("institution_detail")} color={currentTab === "institution_detail" ? "primary" : "inherit"} sx={{ mr: 2 }} >
           Institution Detail
         </Button>
 
-        <Button variant={currentTab === "institution_other" ? "contained" : "outlined"} onClick={()=> setCurrentTab("institution_other")} color={currentTab === "institution_other" ? "primary" : "inherit"} >
+        <Button variant={currentTab === "institution_other" ? "contained" : "outlined"} onClick={() => setCurrentTab("institution_other")} color={currentTab === "institution_other" ? "primary" : "inherit"} >
           Other
         </Button>
 
-        <div style={{marginTop: 50}}>
-          {currentTab === "institution_detail" ? <Detail /> : null}
+        <div style={{ marginTop: 50 }}>
+          {currentTab === "institution_detail" ? <Detail data={data} /> : null}
         </div>
 
       </Container>

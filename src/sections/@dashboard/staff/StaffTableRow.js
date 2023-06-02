@@ -59,7 +59,7 @@ export default function StaffTableRow({
         <TableCell align="left">{index + 1}</TableCell>
         <TableCell
           sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
-          onClick={() => handleDetailsView()}
+          
         >
           {profile ? (
             <Image
@@ -78,18 +78,18 @@ export default function StaffTableRow({
           )}
         </TableCell>
 
-        <TableCell onClick={() => handleDetailsView()} style={{ cursor: 'pointer' }}>
+        <TableCell  style={{ cursor: 'pointer' }}>
           {name}
         </TableCell>
 
-        <TableCell onClick={() => handleDetailsView()} style={{ cursor: 'pointer' }}>
+        <TableCell  style={{ cursor: 'pointer' }}>
           {designation_name}
         </TableCell>
 
-        <TableCell onClick={() => handleDetailsView()} style={{ cursor: 'pointer' }}>
+        <TableCell  style={{ cursor: 'pointer' }}>
           {contact_no}
         </TableCell>
-        <TableCell onClick={() => handleDetailsView()} style={{ cursor: 'pointer' }}>
+        <TableCell  style={{ cursor: 'pointer' }}>
           {email_id}
         </TableCell>
 

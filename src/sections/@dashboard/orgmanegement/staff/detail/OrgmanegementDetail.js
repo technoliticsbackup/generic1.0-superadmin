@@ -41,7 +41,7 @@ export default function OrgmanegementDetail({ instdata }) {
           <Card sx={{ py: 5, px: 3 }}>
             <Image
               alt="register"
-              src={instdata?.inst_logo}
+              src={instdata?.org_logo || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
               fill
               sx={{ borderRadius: '16px', objectFit: 'cover' }}
             />

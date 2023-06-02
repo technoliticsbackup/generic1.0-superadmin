@@ -1,12 +1,8 @@
-import { Button, Card, Container, Divider, Table, TableBody, TableContainer } from '@mui/material';
+import { Card, Divider, Table, TableBody, TableContainer } from '@mui/material';
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import CustomBreadcrumbs from '../../../../../components/custom-breadcrumbs';
-import Iconify from '../../../../../components/iconify';
-import LoadingScreen from '../../../../../components/loading-screen';
+import { useNavigate } from 'react-router-dom';
 import Scrollbar from '../../../../../components/scrollbar';
-import { useSettingsContext } from '../../../../../components/settings';
 import {
   TableEmptyRows,
   TableHeadCustom,
@@ -17,10 +13,9 @@ import {
   useTable,
 } from '../../../../../components/table';
 import { PATH_DASHBOARD } from '../../../../../routes/paths';
+import { useDeleteInstById, useGetAllStaff } from '../../../../../services/instmanegerServices';
 import StaffTableRow from './StaffTableRow';
 import StaffToolbar from './StaffToolbar';
-import { useDeleteInstById, useGetAllStaff } from '../../../../../services/instmanegerServices';
-
 
 const TABLE_HEAD = [
   { id: 'index', label: 'SNO', align: 'left' },
@@ -38,7 +33,11 @@ const headers = [
   { label: 'STATUS', key: 'status' },
 ];
 
-export default function InstmanegementListPage() {
+InstmanegementListPage.propTypes = {
+  instId: PropTypes.string,
+};
+
+export default function InstmanegementListPage({instId}) {
   const {
     dense,
     page,
@@ -53,7 +52,6 @@ export default function InstmanegementListPage() {
     onChangeRowsPerPage,
   } = useTable();
 
-  const { themeStretch } = useSettingsContext();
 
   const navigate = useNavigate();
 
@@ -63,7 +61,7 @@ export default function InstmanegementListPage() {
 
   const {
     data
-  } = useGetAllStaff();
+  } = useGetAllStaff(instId);
 
   const { deleteInst } = useDeleteInstById();
 

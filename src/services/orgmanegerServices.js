@@ -29,8 +29,8 @@ export const useGetAllOrgmanegerStatus = () => {
 };
 
 export const useGetOneOrgmanegerById = (id) => {
-  const { data, isError, isLoading } = useQuery(['_getOneOrgmanegerById'], () =>
-    axiosInstance.get(`/org/one/${id}`)
+  const { data, isError, isLoading } = useQuery(['_getOneOrgmanegerById', id], () =>
+    axiosInstance.get(`/org/one/${id}`),{enabled : !!id}
   );
   return {
     data: data?.data?.data,
@@ -64,6 +64,18 @@ export const useCreateOrgmaneger = () => {
   };
 };
 
+export const useGetAllDesignationTypeAdmin = () => {
+  const { data, isError, isLoading } = useQuery(
+    ['_getAllDesignationTypeAdmin'],
+    () => axiosInstance.get('/org/allTypeAdmin'),
+    { enabled: true }
+  );
+  return {
+    data: data?.data?.designation,
+    isLoading,
+    isError,
+  };
+};
 
 export const useUpdateOrgmanegerById = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -142,12 +154,12 @@ export const useCreateOrgStaff = () => {
   };
 };
 
-export const useGetAllStaff = () => {
+export const useGetAllStaff = (orgId) => {
   const { data, isError, isLoading } = useQuery(
-    ['_getGetAllStaff'],
-    () => axiosInstance.get('/orgadminuser/all'),
+    ['_getGetAllStaff',orgId],
+    () => axiosInstance.get(`/orgadminuser/allByOrg/${orgId}`),
     {
-      enabled: true,
+      enabled: !!orgId,
     }
   );
   return {
@@ -184,8 +196,8 @@ export const useUpdateStaffById = () => {
 };
 
 export const useGetOneStaffById = (id) => {
-  const { data, isError, isLoading } = useQuery(['_getOneStaffById'], () =>
-    axiosInstance.get(`/orgadminuser/one/${id}`)
+  const { data, isError, isLoading } = useQuery(['_getOneStaffById',id], () =>
+    axiosInstance.get(`/orgadminuser/one/${id}`),{enabled : !!id}
   );
   return {
     data: data?.data?.data,

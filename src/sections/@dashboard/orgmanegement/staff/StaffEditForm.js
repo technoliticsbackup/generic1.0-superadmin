@@ -20,9 +20,7 @@ import FormProvider, {
   RHFUploadAvatar
 } from '../../../../components/hook-form';
 import {
-  useGetAllDesignationStatus
-} from '../../../../services/designationServices';
-import {
+  useGetAllDesignationTypeAdmin,
   useUpdateStaffById
 } from '../../../../services/orgmanegerServices';
 // ----------------------------------------------------------------------
@@ -75,7 +73,7 @@ export default function StaffNewEditForm({ currentUser }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
-  const { data: designationAlldata, } = useGetAllDesignationStatus();
+  const { data: designationAlldata, } = useGetAllDesignationTypeAdmin();
 
 
   const onSubmit = async (data) => {

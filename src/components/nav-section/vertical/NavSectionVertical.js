@@ -11,30 +11,14 @@ const icon = (name) => (
 );
 
 const ICONS = {
-  blog: icon('ic_blog'),
-  cart: icon('ic_cart'),
-  chat: icon('ic_chat'),
-  mail: icon('ic_mail'),
-  user: icon('ic_user'),
-  file: icon('ic_file'),
-  lock: icon('ic_lock'),
-  label: icon('ic_label'),
-  blank: icon('ic_blank'),
-  kanban: icon('ic_kanban'),
-  folder: icon('ic_folder'),
-  banking: icon('ic_banking'),
-  booking: icon('ic_booking'),
-  invoice: icon('ic_invoice'),
-  calendar: icon('ic_calendar'),
-  disabled: icon('ic_disabled'),
-  external: icon('ic_external'),
-  menuItem: icon('ic_menu_item'),
-  ecommerce: icon('ic_ecommerce'),
-  analytics: icon('ic_analytics'),
+
   dashboard: icon('ic_dashboard'),
-  category: icon('ic_category'),
-  subcategory: icon('ic_sub_category'),
-  supercategory: icon('ic_super_category'),
+  user: icon('ic_user'),
+  department: icon('ic_department'),
+  employeemanagement: icon('ic_employeemanagement'),
+  institution: icon('ic_institution'),
+  organization: icon('ic_organization'),
+  permissionsettings: icon('ic_permissionsettings'),
 };
 
 NavSectionVertical.propTypes = {
@@ -58,15 +42,15 @@ export default function NavSectionVertical({ isCollapse = false, ...other }) {
       {user?.designations.staff ? <List disablePadding sx={{ px: 2 }}>
         <StyledSubheader>MANAGEMENT</StyledSubheader>
         <NavList
-          data={{ title: 'Staff managment', path: PATH_DASHBOARD.staff.root, icon: ICONS.user }}
+          data={{ title: 'Staff managment', path: PATH_DASHBOARD.staff.root, icon: ICONS.employeemanagement }}
           depth={1}
         />
         <NavList
-          data={{ title: 'Organization Management', path: PATH_DASHBOARD.orgmanagment.list, icon: ICONS.user }}
+          data={{ title: 'Organization Management', path: PATH_DASHBOARD.orgmanagment.list, icon: ICONS.organization }}
           depth={1}
         />
            <NavList
-          data={{ title: 'Institution Management', path: PATH_DASHBOARD.instmanagment.list, icon: ICONS.user }}
+          data={{ title: 'Institution Management', path: PATH_DASHBOARD.instmanagment.list, icon: ICONS.institution }}
           depth={1}
         />
 
@@ -76,14 +60,14 @@ export default function NavSectionVertical({ isCollapse = false, ...other }) {
         <List disablePadding sx={{ px: 2 }}>
           <StyledSubheader>configuration</StyledSubheader>
           {user?.designations.department ? <NavList
-            data={{ title: 'Department', path: PATH_DASHBOARD.department.list, icon: ICONS.user }}
+            data={{ title: 'Department', path: PATH_DASHBOARD.department.list, icon: ICONS.department }}
             depth={1}
           />
             : null}
 
           {user?.designations.designation ?
             <NavList
-              data={{ title: 'Designation', path: PATH_DASHBOARD.designation.list, icon: ICONS.user }}
+              data={{ title: 'Designation', path: PATH_DASHBOARD.designation.list, icon: ICONS.permissionsettings }}
               depth={1}
             />
             : null}
