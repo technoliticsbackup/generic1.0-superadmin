@@ -140,6 +140,8 @@ import {
   OrgmanegementEditForm,
   OrgmanegementDetailsPage,
   OrgStaffCreatePage,
+  OrgStaffEditPage,
+  OrgStaffChangePassword,
   InstmanegementListPage,
   InstmanegementCreatePage,
   InstmanegementEditForm,
@@ -239,6 +241,8 @@ export default function Router() {
             { path: 'edit/:id', element: <OrgmanegementEditForm /> },
             { path: ':id', element: <OrgmanegementDetailsPage /> },
             { path: 'addstaff/:id', element: <OrgStaffCreatePage /> },
+            { path: 'editstaff/:id', element: <OrgStaffEditPage /> },
+            { path: 'changepassword/:id', element: <OrgStaffChangePassword /> },
           ],
         },
 

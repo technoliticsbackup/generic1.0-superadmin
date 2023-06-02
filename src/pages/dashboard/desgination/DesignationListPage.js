@@ -195,7 +195,7 @@ function applyFilter({ inputData, comparator, filterName }) {
 
   if (filterName) {
     inputData = inputData.filter(
-      (item) => item?.designation_name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+      (item) => item?.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
     );
   }
 

@@ -28,7 +28,7 @@ export default function StaffToolbar({ filterName, onFilterName, headers, getDow
           fullWidth
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search by Designation Name"
+          placeholder="Search..."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

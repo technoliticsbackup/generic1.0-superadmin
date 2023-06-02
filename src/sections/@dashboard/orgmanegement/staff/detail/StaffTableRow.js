@@ -1,27 +1,27 @@
-import { IconButton, MenuItem, TableCell, TableRow } from '@mui/material';
+import { Avatar, IconButton, MenuItem, Stack, TableCell, TableRow, Typography } from '@mui/material';
 import Select from '@mui/material/Select';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import Iconify from '../../../components/iconify';
-import Image from '../../../components/image';
-import MenuPopover from '../../../components/menu-popover/MenuPopover';
-import { useUpdateOrgmanegerStatusById } from '../../../services/orgmanegerServices';
+import Iconify from '../../../../../components/iconify';
+import MenuPopover from '../../../../../components/menu-popover/MenuPopover';
+import { useStatusUpdateStaffById } from '../../../../../services/orgmanegerServices';
 
-OrgmanegementTableRow.propTypes = {
+InstmanegementTableRow.propTypes = {
   row: PropTypes.object,
   index: PropTypes.number,
   onEditRow: PropTypes.func,
-  onAddStaff: PropTypes.func,
-  onViewDetail: PropTypes.func,
+  onChangePassword: PropTypes.func,
+  onDeleteRow: PropTypes.func,
+
 };
 
-export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaff, onViewDetail }) {
+export default function InstmanegementTableRow({ row, index, onEditRow, onChangePassword, onDeleteRow }) {
   const [openPopover, setOpenPopover] = useState(null);
   const [statusPage, setStatusPage] = useState(null);
 
-  const { _id, name, contact_no, email_id, city, state, address, org_logo, status } = row;
+  const { _id, profile, name, contact_no, email_id, status, designation_name } = row;
 
-  const { updateStatusOrgmaneger } = useUpdateOrgmanegerStatusById();
+  const { updateStaff } = useStatusUpdateStaffById();
 
   const handleOpenPopover = (event) => {
     setOpenPopover(event.currentTarget);
@@ -44,7 +44,7 @@ export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaf
       id: _id,
       status: data,
     };
-    updateStatusOrgmaneger(payload);
+    updateStaff(payload);
   };
 
   return (
@@ -52,49 +52,27 @@ export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaf
       <TableRow hover>
         <TableCell align="left">{index + 1}</TableCell>
 
-        <TableCell
-          sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
-        >
-          {org_logo ? (
-            <Image
-              disabledEffect
-              alt={name}
-              src={org_logo}
-              sx={{ borderRadius: 1.5, width: 48, height: 48, mr: 2 }}
-            />
-          ) : (
-            <Image
-              disabledEffect
-              alt={name}
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-              sx={{ borderRadius: 1.5, width: 48, height: 48, mr: 2 }}
-            />
-          )}
+        <TableCell>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Avatar alt={name} src={profile} />
+
+            <Typography>
+              {name}
+            </Typography>
+          </Stack>
         </TableCell>
 
 
-        <TableCell onClick={()=> onViewDetail()} style={{ cursor: 'pointer' }}>
-          {name}
+        <TableCell style={{ cursor: 'pointer' }}>
+          {designation_name}
         </TableCell>
 
-        <TableCell onClick={()=> onViewDetail()} style={{ cursor: 'pointer' }}>
+        <TableCell style={{ cursor: 'pointer' }}>
           {contact_no}
         </TableCell>
 
-        <TableCell onClick={()=> onViewDetail()} style={{ cursor: 'pointer' }}>
+        <TableCell style={{ cursor: 'pointer' }}>
           {email_id}
-        </TableCell>
-
-        <TableCell onClick={()=> onViewDetail()} style={{ cursor: 'pointer' }}>
-          {city}
-        </TableCell>
-
-        <TableCell style={{ cursor: 'pointer' }}>
-          {state}
-        </TableCell>
-
-        <TableCell style={{ cursor: 'pointer' }}>
-          {address}
         </TableCell>
 
         <TableCell align="left">
@@ -121,7 +99,6 @@ export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaf
         open={openPopover}
         onClose={handleClosePopover}
         arrow="right-top"
-        sx={{ width: 160 }}
       >
         <MenuItem
           onClick={() => {
@@ -130,16 +107,25 @@ export default function OrgmanegementTableRow({ row, index, onEditRow, onAddStaf
           }}
         >
           <Iconify icon="eva:edit-fill" />
-          Edit
+          Edit User
         </MenuItem>
         <MenuItem
           onClick={() => {
-            onAddStaff();
+            onChangePassword();
             handleClosePopover();
           }}
         >
-          <Iconify icon="ri:user-add-line" />
-          Add Staff
+          <Iconify icon="carbon:password" />
+          Change Password
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            onDeleteRow();
+            handleClosePopover();
+          }}
+        >
+          <Iconify icon="fluent-mdl2:delete" />
+          Delete User
         </MenuItem>
       </MenuPopover>
     </>

@@ -285,7 +285,7 @@ export const useDeleteStaffById = () => {
   const { mutate, data } = useMutation(
     (id) => {
       const _id = id;
-      return axiosInstance.delete(`/adminuser/delete/${_id}`);
+      return axiosInstance.delete(`/instadminuser/delete/${_id}`);
     },
     {
       onSuccess: () => {

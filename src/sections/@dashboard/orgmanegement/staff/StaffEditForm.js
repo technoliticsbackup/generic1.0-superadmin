@@ -24,7 +24,7 @@ import {
 } from '../../../../services/designationServices';
 import {
   useUpdateStaffById
-} from '../../../../services/instmanegerServices';
+} from '../../../../services/orgmanegerServices';
 // ----------------------------------------------------------------------
 
 StaffNewEditForm.propTypes = {
@@ -71,9 +71,9 @@ export default function StaffNewEditForm({ currentUser }) {
     if (currentUser) {
       reset(defaultValues);
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ currentUser]);
+  }, [currentUser]);
 
   const { data: designationAlldata, } = useGetAllDesignationStatus();
 
@@ -83,12 +83,7 @@ export default function StaffNewEditForm({ currentUser }) {
     try {
       const formData = new FormData();
       formData.set('id', currentUser?._id);
-      if (data.profile) {
-        formData.append('profile', data.profile);
-      } else {
-        formData.set('profile', currentUser.profile);
-      }
-
+      formData.append('profile', data.profile);
       formData.set('name', data.name);
       formData.set('email_id', data.email_id);
       formData.set('contact_no', data.contact_no);
@@ -118,7 +113,7 @@ export default function StaffNewEditForm({ currentUser }) {
 
   const closeIt = () => {
     reset();
-    navigate(PATH_DASHBOARD.instmanagment.list);
+    navigate(PATH_DASHBOARD.orgmanagment.list);
   };
 
   return (

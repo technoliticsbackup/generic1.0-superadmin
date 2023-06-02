@@ -72,6 +72,8 @@ export const PATH_DASHBOARD = {
     edit: (id) => path(ROOTS_DASHBOARD, `/orgmanagment/edit/${id}/`),
     view: (id) => path(ROOTS_DASHBOARD, `/orgmanagment/${id}`),
     addstaff: (id) => path(ROOTS_DASHBOARD, `/orgmanagment/addstaff/${id}`),
+    editstaff: (id) => path(ROOTS_DASHBOARD, `/orgmanagment/editstaff/${id}`),
+    changepassword: (id) => path(ROOTS_DASHBOARD, `/orgmanagment/changepassword/${id}`),
   },
 
   instmanagment: {

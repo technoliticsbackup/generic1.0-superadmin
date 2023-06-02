@@ -28,7 +28,7 @@ export default function InstmanegementToolbar({ filterName, onFilterName, header
           fullWidth
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search by Designation Name"
+          placeholder="Search..."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

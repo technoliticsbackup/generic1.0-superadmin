@@ -28,7 +28,7 @@ export default function OrgmanegementToolbar({ filterName, onFilterName, headers
           fullWidth
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search by Designation Name"
+          placeholder="Search..."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

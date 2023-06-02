@@ -104,6 +104,11 @@ export default function OrgmanegementListPage() {
     navigate(PATH_DASHBOARD.orgmanagment.addstaff(id));
   };
 
+  const handleViewDetail = (id) => {
+    navigate(PATH_DASHBOARD.orgmanagment.view(id));
+  };
+
+
 
   return (
     <>
@@ -162,6 +167,7 @@ export default function OrgmanegementListPage() {
                         index={index}
                         onEditRow={() => handleEditRow(row._id)}
                         onAddStaff={()=> handleAddStaff(row._id)}
+                        onViewDetail={()=> handleViewDetail(row._id)}
                       />
                     ))}
 

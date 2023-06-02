@@ -75,6 +75,14 @@ export const OrgStaffCreatePage = Loadable(
   lazy(() => import('../pages/dashboard/orgmanegement/staff/StaffCreatePage'))
 );
 
+export const OrgStaffEditPage = Loadable(
+  lazy(() => import('../pages/dashboard/orgmanegement/staff/StaffEditPage'))
+);
+
+export const OrgStaffChangePassword = Loadable(
+  lazy(() => import('../pages/dashboard/orgmanegement/staff/ChangePassword'))
+);
+
 export const InstmanegementListPage = Loadable(
   lazy(() => import('../pages/dashboard/instmanegement/InstmanegementListPage'))
 );

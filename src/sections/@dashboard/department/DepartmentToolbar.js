@@ -28,7 +28,7 @@ export default function DepartmentToolbar({ filterName, onFilterName, headers, g
           fullWidth
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search by Department Name"
+          placeholder="Search..."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

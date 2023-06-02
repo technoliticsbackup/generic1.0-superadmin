@@ -66,6 +66,10 @@ export function AuthProvider({ children }) {
 
         const { user } = response.data;
 
+        if(!user.contact_no){
+          setSession(null, null);
+        }
+
         dispatch({
           type: 'INITIAL',
           payload: {
