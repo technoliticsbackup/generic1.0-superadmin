@@ -12,7 +12,7 @@ import NavItem from './NavItem';
 NavList.propTypes = {
   data: PropTypes.object,
   depth: PropTypes.number,
-  hasChild: PropTypes.bool,
+  hasChild: PropTypes.any,
 };
 
 export default function NavList({ data, depth, hasChild }) {

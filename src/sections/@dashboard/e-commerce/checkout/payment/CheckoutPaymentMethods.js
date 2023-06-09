@@ -93,7 +93,7 @@ export default function CheckoutPaymentMethods({ paymentOptions, cardOptions, ..
 
 PaymentOption.propTypes = {
   onOpen: PropTypes.func,
-  hasChild: PropTypes.bool,
+  hasChild: PropTypes.any,
   option: PropTypes.object,
   isSelected: PropTypes.bool,
   cardOptions: PropTypes.array,

@@ -95,7 +95,7 @@ export default function PaymentMethods() {
 
 PaymentOption.propTypes = {
   onOpen: PropTypes.func,
-  hasChild: PropTypes.bool,
+  hasChild: PropTypes.any,
   option: PropTypes.object,
   isSelected: PropTypes.bool,
   isCreditMethod: PropTypes.bool,

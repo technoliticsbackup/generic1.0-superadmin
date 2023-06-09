@@ -149,8 +149,18 @@ import {
   InstmanegementDetailsPage,
   InstStaffCreatePage,
   InstStaffEditPage,
-  InstStaffChangePassword
+  InstStaffChangePassword,
+  
+  StudentrangeListPage,
+
+  PricingtiersCreatePage,
+  PricingtiersEditForm,
+  PricingtiersListPage,
+  ValueaddedpacksCreatePage,
+  ValueaddedpacksEditForm,
+  ValueaddedpacksListPage
 } from './elements';
+
 
 // ----------------------------------------------------------------------
 
@@ -224,6 +234,34 @@ export default function Router() {
         },
 
         {
+          path: 'studentrange',
+          children: [
+            { element: <Navigate to="/dashboard/studentrange/list" replace />, index: true },
+            { path: 'list', element: <StudentrangeListPage /> },
+          ],
+        },
+
+        {
+          path: 'pricingtiers',
+          children: [
+            { element: <Navigate to="/dashboard/pricingtiers/list" replace />, index: true },
+            { path: 'list', element: <PricingtiersListPage /> },
+            { path: 'new', element: <PricingtiersCreatePage /> },
+            { path: 'edit/:id', element: <PricingtiersEditForm /> },
+          ],
+        },
+
+        {
+          path: 'valueaddedpacks',
+          children: [
+            { element: <Navigate to="/dashboard/valueaddedpacks/list" replace />, index: true },
+            { path: 'list', element: <ValueaddedpacksListPage /> },
+            { path: 'new', element: <ValueaddedpacksCreatePage /> },
+            { path: 'edit/:id', element: <ValueaddedpacksEditForm /> },
+          ],
+        },
+
+        {
           path: 'department',
           children: [
             { element: <Navigate to="/dashboard/department/list" replace />, index: true },
@@ -232,7 +270,7 @@ export default function Router() {
             { path: 'edit/:id', element: <DepartmentEditForm /> },
           ],
         },
-        
+
         {
           path: 'orgmanagment',
           children: [
@@ -262,7 +300,7 @@ export default function Router() {
           ],
         },
 
-        
+
         { path: 'ecommerce', element: <GeneralEcommercePage /> },
         { path: 'analytics', element: <GeneralAnalyticsPage /> },
         { path: 'banking', element: <GeneralBankingPage /> },

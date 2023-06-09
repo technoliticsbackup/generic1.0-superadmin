@@ -112,6 +112,34 @@ export const InstStaffChangePassword = Loadable(
   lazy(() => import('../pages/dashboard/instmanegement/staff/ChangePassword'))
 );
 
+export const StudentrangeListPage = Loadable(
+  lazy(() => import('../pages/dashboard/package/studentrange/StudentrangeListPage'))
+);
+
+export const PricingtiersCreatePage = Loadable(
+  lazy(() => import('../pages/dashboard/package/pricingtiers/PricingtiersCreatePage'))
+);
+
+export const PricingtiersEditForm = Loadable(
+  lazy(() => import('../pages/dashboard/package/pricingtiers/PricingtiersEditForm'))
+);
+
+export const PricingtiersListPage = Loadable(
+  lazy(() => import('../pages/dashboard/package/pricingtiers/PricingtiersListPage'))
+);
+
+export const ValueaddedpacksCreatePage = Loadable(
+  lazy(() => import('../pages/dashboard/package/valueaddedpacks/ValueaddedpacksCreatePage'))
+);
+
+export const ValueaddedpacksEditForm = Loadable(
+  lazy(() => import('../pages/dashboard/package/valueaddedpacks/ValueaddedpacksEditForm'))
+);
+
+export const ValueaddedpacksListPage = Loadable(
+  lazy(() => import('../pages/dashboard/package/valueaddedpacks/ValueaddedpacksListPage'))
+);
+
 
 // DASHBOARD: GENERAL
 export const GeneralAppPage = Loadable(lazy(() => import('../pages/dashboard/GeneralAppPage')));

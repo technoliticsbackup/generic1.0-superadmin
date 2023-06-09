@@ -65,6 +65,25 @@ export const PATH_DASHBOARD = {
     edit: (id) => path(ROOTS_DASHBOARD, `/department/edit/${id}/`),
   },
 
+  studentrange: {
+    root: path(ROOTS_DASHBOARD, '/studentrange'),
+    list: path(ROOTS_DASHBOARD, '/studentrange/list'),
+  },
+
+  pricingtiers: {
+    root: path(ROOTS_DASHBOARD, '/pricingtiers'),
+    list: path(ROOTS_DASHBOARD, '/pricingtiers/list'),
+    new: path(ROOTS_DASHBOARD, '/pricingtiers/new'),
+    edit: (id) => path(ROOTS_DASHBOARD, `/pricingtiers/edit/${id}/`),
+  },
+
+  valueaddedpacks: {
+    root: path(ROOTS_DASHBOARD, '/valueaddedpacks'),
+    list: path(ROOTS_DASHBOARD, '/valueaddedpacks/list'),
+    new: path(ROOTS_DASHBOARD, '/valueaddedpacks/new'),
+    edit: (id) => path(ROOTS_DASHBOARD, `/valueaddedpacks/edit/${id}/`),
+  },
+
   orgmanagment: {
     root: path(ROOTS_DASHBOARD, '/orgmanagment'),
     list: path(ROOTS_DASHBOARD, '/orgmanagment/list'),

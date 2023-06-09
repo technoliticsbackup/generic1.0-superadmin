@@ -49,9 +49,28 @@ export default function NavSectionVertical({ isCollapse = false, ...other }) {
           data={{ title: 'Organization Management', path: PATH_DASHBOARD.orgmanagment.list, icon: ICONS.organization }}
           depth={1}
         />
-           <NavList
+        <NavList
           data={{ title: 'Institution Management', path: PATH_DASHBOARD.instmanagment.list, icon: ICONS.institution }}
           depth={1}
+        />
+
+        <NavList
+          data={{
+            title: 'Package Management',
+            path: PATH_DASHBOARD.studentrange.list,
+            icon: ICONS.permissionsettings,
+            children: [
+              { title: 'Student Range', path: PATH_DASHBOARD.studentrange.list},
+              { title: 'Pricing Tiers', path: PATH_DASHBOARD.pricingtiers.list},
+              { title: 'Value Added Packs', path: PATH_DASHBOARD.valueaddedpacks.list},
+            ],
+          }}
+          depth={1}
+          hasChild={[
+            { title: 'Student Range', path: PATH_DASHBOARD.studentrange.list},
+            { title: 'Pricing Tiers', path: PATH_DASHBOARD.pricingtiers.list},
+            { title: 'Value Added Packs', path: PATH_DASHBOARD.valueaddedpacks.list},
+          ]}
         />
 
       </List> : null}
@@ -71,8 +90,10 @@ export default function NavSectionVertical({ isCollapse = false, ...other }) {
               depth={1}
             />
             : null}
+
         </List>
       ) : null}
+
     </Box>
   );
 }
