@@ -1,15 +1,13 @@
 import { LoadingButton } from '@mui/lab';
 import { Grid, Stack } from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import FormProvider, { RHFTextField } from '../../../../components/hook-form';
-import { PATH_DASHBOARD } from '../../../../routes/paths';
 import {
   useCreateStudentRange
 } from '../../../../services/studentrangeServices';
-import { useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
 
 StudentrangeAddForm.propTypes = {
   range: PropTypes.array,
@@ -18,7 +16,6 @@ StudentrangeAddForm.propTypes = {
 };
 
 export default function StudentrangeAddForm({ range, readOnly, setReadOnly }) {
-  const navigate = useNavigate();
   const queryClient = useQueryClient()
 
   const [deleteRow, setDeleteRow] = useState([]);
@@ -28,10 +25,7 @@ export default function StudentrangeAddForm({ range, readOnly, setReadOnly }) {
   });
 
   const {
-    reset,
     handleSubmit,
-    setValue,
-    register,
     control
   } = methods;
 
@@ -129,7 +123,6 @@ export default function StudentrangeAddForm({ range, readOnly, setReadOnly }) {
                   </Stack>
                 </Grid>
               )}
-
             </Grid>
           </Grid>
         </FormProvider>

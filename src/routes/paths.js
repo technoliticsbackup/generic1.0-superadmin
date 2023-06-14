@@ -84,6 +84,13 @@ export const PATH_DASHBOARD = {
     edit: (id) => path(ROOTS_DASHBOARD, `/valueaddedpacks/edit/${id}/`),
   },
 
+  packages: {
+    root: path(ROOTS_DASHBOARD, '/packages'),
+    list: path(ROOTS_DASHBOARD, '/packages/list'),
+    new: path(ROOTS_DASHBOARD, '/packages/new'),
+    edit: (id) => path(ROOTS_DASHBOARD, `/packages/edit/${id}/`),
+  },
+
   orgmanagment: {
     root: path(ROOTS_DASHBOARD, '/orgmanagment'),
     list: path(ROOTS_DASHBOARD, '/orgmanagment/list'),

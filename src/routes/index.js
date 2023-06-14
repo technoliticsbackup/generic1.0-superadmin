@@ -158,9 +158,11 @@ import {
   PricingtiersListPage,
   ValueaddedpacksCreatePage,
   ValueaddedpacksEditForm,
-  ValueaddedpacksListPage
+  ValueaddedpacksListPage,
+  PackageCreatePage,
+  PackageEditForm,
+  PackageListPage
 } from './elements';
-
 
 // ----------------------------------------------------------------------
 
@@ -258,6 +260,16 @@ export default function Router() {
             { path: 'list', element: <ValueaddedpacksListPage /> },
             { path: 'new', element: <ValueaddedpacksCreatePage /> },
             { path: 'edit/:id', element: <ValueaddedpacksEditForm /> },
+          ],
+        },
+
+        {
+          path: 'packages',
+          children: [
+            { element: <Navigate to="/dashboard/packages/list" replace />, index: true },
+            { path: 'list', element: <PackageListPage /> },
+            { path: 'new', element: <PackageCreatePage /> },
+            { path: 'edit/:id', element: <PackageEditForm /> },
           ],
         },
 

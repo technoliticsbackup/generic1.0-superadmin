@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { CSVLink } from 'react-csv';
 import Iconify from '../../../../components/iconify';
 
-StudentrangeToolbar.propTypes = {
+PackageToolbar.propTypes = {
   filterName: PropTypes.string,
   onFilterName: PropTypes.func,
   headers: PropTypes.array,
   getDownload: PropTypes.array,
 };
 
-export default function StudentrangeToolbar({ filterName, onFilterName, headers, getDownload }) {
+export default function PackageToolbar({ filterName, onFilterName, headers, getDownload }) {
   return (
     <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} sx={{ py: 2.5, px: 3 }}>
       <Box

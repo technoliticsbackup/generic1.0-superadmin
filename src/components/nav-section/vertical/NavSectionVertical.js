@@ -63,6 +63,7 @@ export default function NavSectionVertical({ isCollapse = false, ...other }) {
               { title: 'Student Range', path: PATH_DASHBOARD.studentrange.list},
               { title: 'Pricing Tiers', path: PATH_DASHBOARD.pricingtiers.list},
               { title: 'Value Added Packs', path: PATH_DASHBOARD.valueaddedpacks.list},
+              { title: 'Packages', path: PATH_DASHBOARD.packages.list},
             ],
           }}
           depth={1}
@@ -70,6 +71,7 @@ export default function NavSectionVertical({ isCollapse = false, ...other }) {
             { title: 'Student Range', path: PATH_DASHBOARD.studentrange.list},
             { title: 'Pricing Tiers', path: PATH_DASHBOARD.pricingtiers.list},
             { title: 'Value Added Packs', path: PATH_DASHBOARD.valueaddedpacks.list},
+            { title: 'Packages', path: PATH_DASHBOARD.packages.list},
           ]}
         />
 

@@ -140,6 +140,18 @@ export const ValueaddedpacksListPage = Loadable(
   lazy(() => import('../pages/dashboard/package/valueaddedpacks/ValueaddedpacksListPage'))
 );
 
+export const PackageCreatePage = Loadable(
+  lazy(() => import('../pages/dashboard/package/package/PackageCreatePage'))
+);
+
+export const PackageEditForm = Loadable(
+  lazy(() => import('../pages/dashboard/package/package/PackageEditForm'))
+);
+
+export const PackageListPage = Loadable(
+  lazy(() => import('../pages/dashboard/package/package/PackageListPage'))
+);
+
 
 // DASHBOARD: GENERAL
 export const GeneralAppPage = Loadable(lazy(() => import('../pages/dashboard/GeneralAppPage')));
