@@ -11,11 +11,9 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import FormProvider, { RHFSelect } from '../../../../components/hook-form';
 import { PATH_DASHBOARD } from '../../../../routes/paths';
-import {
-  useCreatePricingtiers
-} from '../../../../services/pricingtiersServices';
+import { useCreatePricingtiers } from '../../../../services/pricingtiersServices';
+import { useGetAllPackage } from '../../../../services/packageServices';
 import { useQueryClient } from '@tanstack/react-query';
-
 
 PricingtiersAddForm.propTypes = {
   isEdit: PropTypes.bool,
@@ -24,32 +22,24 @@ PricingtiersAddForm.propTypes = {
   columns: PropTypes.any,
 };
 
-const PACKAGENAME = [
-  "FREE",
-  "SILVER",
-  "GOLD",
-  "PLATINUM",
-]
-
-
 export default function PricingtiersAddForm({ isEdit = false, data, columns, rows }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { createPricingtiers, isLoading: updatePricingtiersIsLoading } = useCreatePricingtiers();
+  const { data: allPackage } = useGetAllPackage();
 
-  const [instRow, setInstRow] = useState(rows)
+  const [instRow, setInstRow] = useState(rows);
 
   const [cellModesModel, setCellModesModel] = useState({});
 
   const NewValueaddedpackSchema = Yup.object().shape({
-    package_name: Yup.string().required('Package Name is required'),
-
+    packageId: Yup.string().required('Package Name is required'),
   });
 
   const defaultValues = useMemo(
     () => ({
       _id: data?._id || '',
-      package_name: data?.package_name || '',
+      packageId: data?.packageId || '',
     }),
     [data]
   );
@@ -84,19 +74,18 @@ export default function PricingtiersAddForm({ isEdit = false, data, columns, row
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, data]);
 
-
   const onSubmit = async (_data) => {
     try {
       const payload = {
         id: defaultValues?._id,
-        package_name: _data.package_name,
-        rows: instRow
+        packageId: _data.packageId,
+        rows: instRow,
       };
       createPricingtiers(payload, {
         onSuccess: () => {
           queryClient.invalidateQueries('_getOnePricingtiersById');
-          closeIt()
-        }
+          closeIt();
+        },
       });
     } catch (error) {
       console.error('error', error);
@@ -107,7 +96,6 @@ export default function PricingtiersAddForm({ isEdit = false, data, columns, row
     reset();
     navigate(PATH_DASHBOARD.pricingtiers.list);
   };
-
 
   const handleCellClick = React.useCallback((params) => {
     setCellModesModel((prevModel) => {
@@ -136,14 +124,13 @@ export default function PricingtiersAddForm({ isEdit = false, data, columns, row
     });
   }, []);
 
-
   const handleCellModesModelChange = React.useCallback((newModel) => {
     setCellModesModel(newModel);
   }, []);
 
   const processRowUpdate = (newRow, oldRow) => {
-    setInstRow(prevRows => {
-      const updatedRows = prevRows.map(row => {
+    setInstRow((prevRows) => {
+      const updatedRows = prevRows.map((row) => {
         if (row.id === newRow.id) {
           return newRow;
         }
@@ -156,20 +143,24 @@ export default function PricingtiersAddForm({ isEdit = false, data, columns, row
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
-
         <Grid item xs={12} md={6}>
-          <RHFSelect native name="package_name" label="Select Package Name" placeholder="Select Package Name">
+          <RHFSelect
+            native
+            name="packageId"
+            label="Select Package Name"
+            placeholder="Select Package Name"
+          >
             <option value="" />
-            {PACKAGENAME?.map((item) => (
-              <option key={item} value={item}>
-                {item}
+            {allPackage?.map((item) => (
+              <option key={item} value={item?._id}>
+                {item?.packageName}
               </option>
             ))}
           </RHFSelect>
         </Grid>
 
         <Grid item xs={12} md={12}>
-          <Box sx={{ height: 100, width: '100%', }}>
+          <Box sx={{ height: 100, width: '100%' }}>
             <DataGrid
               density="compact"
               hideFooter
@@ -200,7 +191,6 @@ export default function PricingtiersAddForm({ isEdit = false, data, columns, row
           {isEdit ? 'Update Now' : 'Create Now'}
         </LoadingButton>
       </Stack>
-
     </FormProvider>
   );
 }
