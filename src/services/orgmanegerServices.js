@@ -135,7 +135,7 @@ export const useCreateOrgStaff = () => {
     (data) => {
       const formData = data;
       console.log(formData)
-      return axiosInstance.post('/orgadminuser/signup', formData);
+      return axiosInstance.post('/orgadminuser/createuser', formData);
     },
     {
       onSuccess: (data) => {

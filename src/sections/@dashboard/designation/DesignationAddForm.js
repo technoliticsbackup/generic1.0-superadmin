@@ -14,12 +14,8 @@ import {
   useUpdateDesignationById,
 } from '../../../services/designationServices';
 
-import {
-  useGetAllDepartmentStatus
-} from '../../../services/departmentServices';
+import { useGetAllDepartmentStatus } from '../../../services/departmentServices';
 import LoadingScreen from '../../../components/loading-screen';
-
-
 
 DesignationAddForm.propTypes = {
   isEdit: PropTypes.bool,
@@ -31,8 +27,6 @@ export default function DesignationAddForm({ isEdit = false, data }) {
 
   const { createDesignation, isLoading: designationIsLoading } = useCreateDesignation();
   const { updateDesignation, isLoading: updatedesignationIsLoading } = useUpdateDesignationById();
-  
-
 
   const NewDesignationSchema = Yup.object().shape({
     name: Yup.string().required('Designation Name is required'),
@@ -60,7 +54,7 @@ export default function DesignationAddForm({ isEdit = false, data }) {
     formState: { isSubmitting },
   } = methods;
 
-  const { data: departmentAlldata, isLoading: departmentIsLoading} = useGetAllDepartmentStatus();
+  const { data: departmentAlldata, isLoading: departmentIsLoading } = useGetAllDepartmentStatus();
 
   useEffect(() => {
     if (isEdit && data) {
@@ -72,10 +66,7 @@ export default function DesignationAddForm({ isEdit = false, data }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, data]);
 
-
   if (departmentIsLoading) return <LoadingScreen />;
-
- 
 
   const onSubmit = async (_data) => {
     try {
@@ -88,7 +79,7 @@ export default function DesignationAddForm({ isEdit = false, data }) {
         department: _data?.department,
       };
 
-      console.log("payload==", payload);
+      console.log('payload==', payload);
       if (isEdit) {
         updateDesignation(payload, {
           onSuccess: () => closeIt(),
@@ -111,22 +102,31 @@ export default function DesignationAddForm({ isEdit = false, data }) {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <RHFTextField name="name" label="Designation Name" />
-        </Grid>
+        <Grid item xs={12} md={12}>
+          <Card sx={{ p: 3 }}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6}>
+                <RHFTextField name="name" label="Designation Name" />
+              </Grid>
 
-        <Grid item xs={12} md={6}>
-          <RHFSelect native name="department_id" label="Select Department" placeholder="Select Department">
-            <option value="" />
-            {departmentAlldata?.map((item) => (
-              <option key={item?._id} value={item?._id}>
-                {item?.name}
-              </option>
-            ))}
-          </RHFSelect>
+              <Grid item xs={12} md={6}>
+                <RHFSelect
+                  native
+                  name="department_id"
+                  label="Select Department"
+                  placeholder="Select Department"
+                >
+                  <option value="" />
+                  {departmentAlldata?.map((item) => (
+                    <option key={item?._id} value={item?._id}>
+                      {item?.name}
+                    </option>
+                  ))}
+                </RHFSelect>
+              </Grid>
+            </Grid>
+          </Card>
         </Grid>
-
-        <Grid item xs={12} md={7} />
 
         <Grid item xs={12} md={6}>
           <Card sx={{ p: 3 }} spacing={3}>

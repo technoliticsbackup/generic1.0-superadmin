@@ -113,7 +113,7 @@ export default function StaffNewForm({ isEdit = false, id }) {
 
     const closeIt = () => {
         reset();
-        navigate(PATH_DASHBOARD.staff.list);
+        navigate(PATH_DASHBOARD.orgmanagment.list);
     };
 
     return (

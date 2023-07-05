@@ -158,6 +158,7 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
         </Grid>
 
         <Grid item xs={12} md={8}>
+          <Card sx={{ p: 3 , pb: 4}}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
               <RHFTextField name="name" label="Name" />
@@ -189,10 +190,8 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
               <RHFTextField name="address" label="Address" />
             </Grid>
           </Grid>
-        </Grid>
-      </Grid>
 
-      <Stack alignItems='flex-end' sx={{ py: 3 }} spacing={3}>
+          <Stack alignItems='flex-end' sx={{ py: 3 }} spacing={3}>
         <LoadingButton
           type="submit"
           variant="contained"
@@ -201,6 +200,12 @@ export default function OrgmanegementAddForm({ isEdit = false, orgdata }) {
           {isEdit ? 'Update Now' : 'Create Now'}
         </LoadingButton>
       </Stack>
+          </Card>
+     
+        </Grid>
+      </Grid>
+
+
     </FormProvider>
   );
 }

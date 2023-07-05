@@ -1,13 +1,12 @@
 import { LoadingButton } from '@mui/lab';
-import { Grid, Stack } from '@mui/material';
+import { Card, Button, Grid, Stack, IconButton } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import FormProvider, { RHFTextField } from '../../../../components/hook-form';
-import {
-  useCreateStudentRange
-} from '../../../../services/studentrangeServices';
+import { useCreateStudentRange } from '../../../../services/studentrangeServices';
+import Iconify from '../../../../components/iconify';
 
 StudentrangeAddForm.propTypes = {
   range: PropTypes.array,
@@ -16,37 +15,34 @@ StudentrangeAddForm.propTypes = {
 };
 
 export default function StudentrangeAddForm({ range, readOnly, setReadOnly }) {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const [deleteRow, setDeleteRow] = useState([]);
 
   const methods = useForm({
-    defaultValues: { range: range }
+    defaultValues: { range: range },
   });
 
-  const {
-    handleSubmit,
-    control
-  } = methods;
+  const { handleSubmit, control } = methods;
 
   const { createStudentrange } = useCreateStudentRange();
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "range"
+    name: 'range',
   });
 
   const onSubmit = (data) => {
     try {
       const payload = {
         studentRanges: data?.range,
-        deleteRow: deleteRow
-      }
+        deleteRow: deleteRow,
+      };
       createStudentrange(payload, {
         onSuccess: () => {
           queryClient.invalidateQueries('_getGetAllStudentrange');
-          onHandleReadOnly()
-        }
+          onHandleReadOnly();
+        },
       });
     } catch (error) {
       console.error('error', error);
@@ -54,78 +50,95 @@ export default function StudentrangeAddForm({ range, readOnly, setReadOnly }) {
   };
 
   const onHandleReadOnly = () => {
-    setReadOnly(!readOnly)
-  }
-
+    setReadOnly(!readOnly);
+  };
 
   const onRemoveRow = (item) => {
-    setDeleteRow([...deleteRow, item])
-  }
+    setDeleteRow([...deleteRow, item]);
+  };
 
   return (
     <Grid container>
-      <Grid item xs={12} md={5.2} sx={{ mb: 4 }}>
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-          <LoadingButton type="button" variant='outlined' disabled={!readOnly} onClick={() => onHandleReadOnly()} sx={{ mr: 2, height: 45 }}>
-            Edit
-          </LoadingButton>
-          <LoadingButton type="button" variant="outlined">
-            Log
-          </LoadingButton>
-        </div>
-      </Grid>
-
-      <Grid item xs={12} md={12}>
-        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={8}>
-              {fields.map((item, index) => {
-                return (
-                  <Grid container spacing={3} key={index} sx={{ mb: 3 }}>
-                    <Grid item xs={4} md={4}>
-                      <RHFTextField type="number" name={`range.${index}.min`} label="Min" inputProps={{ readOnly: readOnly }} />
-                    </Grid>
-                    <Grid item xs={4} md={4}>
-                      <RHFTextField type="number" name={`range.${index}.max`} label="Max" inputProps={{ readOnly: readOnly }} />
-                    </Grid>
-
-                    {readOnly == true ? null : fields[fields?.length - 1] === item ? (
-                      <Grid item xs={2} md={2}>
-                        <LoadingButton
-                          onClick={() => {
-                            remove(index);
-                            onRemoveRow(item?._id)
-                          }}
-                          type="button"
-                          variant="contained"
-                          sx={{ height: 55, backgroundColor: 'red', color: 'white' }}
-                        >
-                          Delete
-                        </LoadingButton>
+      <Grid item xs={12} md={6} sx={{ mb: 4 }}>
+        <Card sx={{ p: 3, mt: 3 }}>
+          <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={12}>
+                {fields.map((item, index) => {
+                  return (
+                    <Grid container spacing={3} key={index} sx={{ mb: 3 }}>
+                      <Grid item xs={5} md={5.5}>
+                        <RHFTextField
+                          type="number"
+                          name={`range.${index}.min`}
+                          label="Min"
+                          inputProps={{ readOnly: readOnly }}
+                        />
                       </Grid>
-                    ) : null}
-                    {readOnly == true ? null : fields[fields?.length - 1] === item ? (
-                      <Grid item xs={2} md={2}>
-                        <LoadingButton onClick={() => append({ min: "", max: "" })} type="button" variant="contained" sx={{ height: 55 }}>
-                          Add More
-                        </LoadingButton>
+                      <Grid item xs={5} md={5.5}>
+                        <RHFTextField
+                          type="number"
+                          name={`range.${index}.max`}
+                          label="Max"
+                          inputProps={{ readOnly: readOnly }}
+                        />
                       </Grid>
-                    ) : null}
-                  </Grid>
-                );
-              })}
-              {readOnly == true ? null : (
-                <Grid item xs={12} md={8}>
-                  <Stack alignItems="flex-end" sx={{ py: 3 }} spacing={3}>
-                    <LoadingButton type="submit" variant="contained">
-                      Submit
-                    </LoadingButton>
-                  </Stack>
+
+                      {readOnly === true ? null : fields[fields?.length - 1] === item ? (
+                        <Grid item xs={1} md={1}>
+                          <IconButton
+                            onClick={() => {
+                              remove(index);
+                              onRemoveRow(item?._id);
+                            }}
+                            color="inherit"
+                            sx={{ position: 'absolute', right: 15, marginTop: 1.5 }}
+                          >
+                            <Iconify icon="akar-icons:cross" />
+                          </IconButton>
+                        </Grid>
+                      ) : null}
+                    </Grid>
+                  );
+                })}
+
+                {readOnly === true ? null : (
+                  <Button
+                    size="small"
+                    onClick={() => append({ min: '', max: '' })}
+                    startIcon={<Iconify icon="eva:plus-fill" />}
+                  >
+                    Add More
+                  </Button>
+                )}
+
+                <Grid item xs={12} md={12} sx={{mt: 3}}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div>
+                      <LoadingButton
+                        type="button"
+                        variant="outlined"
+                        disabled={!readOnly}
+                        onClick={() => onHandleReadOnly()}
+                        sx={{ mr: 2 }}
+                      >
+                        Edit
+                      </LoadingButton>
+                      <LoadingButton type="button" variant="outlined">
+                        Log
+                      </LoadingButton>
+                    </div>
+                    {readOnly === true ? null : (
+                      <LoadingButton type="submit" variant="contained">
+                        Submit
+                      </LoadingButton>
+                    )}
+                  </div>
                 </Grid>
-              )}
+              </Grid>
             </Grid>
-          </Grid>
-        </FormProvider>
+          </FormProvider>
+        </Card>
       </Grid>
     </Grid>
   );

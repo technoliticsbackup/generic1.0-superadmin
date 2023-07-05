@@ -20,6 +20,8 @@ import { PATH_DASHBOARD } from '../../../../routes/paths';
 import { PricingtiersTableRow, PricingtiersToolbar } from '../../../../sections/@dashboard/package/pricingtiers';
 import { useGetAllPricingtiers } from '../../../../services/pricingtiersServices';
 
+
+
 const TABLE_HEAD = [
   { id: 'index', label: 'SNO', align: 'left' },
   { id: 'package_name', label: 'PACK NAME', align: 'left' },
@@ -116,7 +118,7 @@ export default function DesignationListPage() {
           }
         />
 
-        <Card>
+        <Card sx={{width: 650}}>
           <PricingtiersToolbar
             filterName={filterName}
             onFilterName={handleFilterName}
@@ -125,9 +127,9 @@ export default function DesignationListPage() {
           />
           <Divider />
 
-          <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
+          <TableContainer sx={{ position: 'relative', overflow: 'unset', width: 650 }}>
             <Scrollbar>
-              <Table size={dense ? 'small' : 'medium'} sx={{ minWidth: 800 }}>
+              <Table>
                 <TableHeadCustom
                   order={order}
                   orderBy={orderBy}

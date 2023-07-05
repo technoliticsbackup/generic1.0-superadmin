@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Button, Dialog, DialogActions, DialogContent, Box, DialogTitle, IconButton, MenuItem, TableCell, TableRow } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, MenuItem, TableCell, TableRow } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -51,8 +51,6 @@ export default function ValueaddedpacksTableRow({ row, index, onEditRow }) {
     setOpen(false);
   };
 
-  console.log(columns, rows)
-
   return (
     <>
       <TableRow hover>
@@ -63,10 +61,10 @@ export default function ValueaddedpacksTableRow({ row, index, onEditRow }) {
 
         <TableCell>
           <LoadingButton
-            fullWidth
+            // fullWidth
             type="button"
             variant="contained"
-            size="large"
+            size="small"
             onClick={() => handleClickOpen()}
           >
             View Matrix
@@ -118,9 +116,6 @@ export default function ValueaddedpacksTableRow({ row, index, onEditRow }) {
               disableRowSelectionOnClick
             />
           </Box>
-
-
-
 
         </DialogContent>
         <DialogActions>

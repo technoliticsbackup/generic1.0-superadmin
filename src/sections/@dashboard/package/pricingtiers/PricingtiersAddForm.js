@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
-import { Grid, Stack } from '@mui/material';
+import { Card, Grid, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import { DataGrid, GridCellEditStopReasons, GridCellModes } from '@mui/x-data-grid';
 import PropTypes from 'prop-types';
@@ -141,56 +141,58 @@ export default function PricingtiersAddForm({ isEdit = false, data, columns, row
   };
 
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <RHFSelect
-            native
-            name="packageId"
-            label="Select Package Name"
-            placeholder="Select Package Name"
+    <Card sx={{p: 3, width: 750}}>
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={12}>
+            <RHFSelect
+              native
+              name="packageId"
+              label="Select Package Name"
+              placeholder="Select Package Name"
+            >
+              <option value="" />
+              {allPackage?.map((item) => (
+                <option key={item} value={item?._id}>
+                  {item?.packageName}
+                </option>
+              ))}
+            </RHFSelect>
+          </Grid>
+
+          <Grid item xs={12} md={12}>
+            <Box sx={{ height: 100, width: '100%' }}>
+              <DataGrid
+                density="compact"
+                hideFooter
+                rows={instRow || []}
+                columns={columns || []}
+                experimentalFeatures={{ newEditingApi: true }}
+                cellModesModel={cellModesModel}
+                onCellModesModelChange={handleCellModesModelChange}
+                onCellClick={handleCellClick}
+                processRowUpdate={processRowUpdate}
+                onCellEditStop={(params, event) => {
+                  if (params.reason === GridCellEditStopReasons.cellFocusOut) {
+                    event.defaultMuiPrevented = true;
+                  }
+                }}
+                disableColumnMenu
+              />
+            </Box>
+          </Grid>
+        </Grid>
+
+        <Stack alignItems="flex-end" sx={{ py: 3 }} spacing={3}>
+          <LoadingButton
+            type="submit"
+            variant="contained"
+            loading={isSubmitting || updatePricingtiersIsLoading}
           >
-            <option value="" />
-            {allPackage?.map((item) => (
-              <option key={item} value={item?._id}>
-                {item?.packageName}
-              </option>
-            ))}
-          </RHFSelect>
-        </Grid>
-
-        <Grid item xs={12} md={12}>
-          <Box sx={{ height: 100, width: '100%' }}>
-            <DataGrid
-              density="compact"
-              hideFooter
-              rows={instRow || []}
-              columns={columns || []}
-              experimentalFeatures={{ newEditingApi: true }}
-              cellModesModel={cellModesModel}
-              onCellModesModelChange={handleCellModesModelChange}
-              onCellClick={handleCellClick}
-              processRowUpdate={processRowUpdate}
-              onCellEditStop={(params, event) => {
-                if (params.reason === GridCellEditStopReasons.cellFocusOut) {
-                  event.defaultMuiPrevented = true;
-                }
-              }}
-              disableColumnMenu
-            />
-          </Box>
-        </Grid>
-      </Grid>
-
-      <Stack alignItems="flex-end" sx={{ py: 3 }} spacing={3}>
-        <LoadingButton
-          type="submit"
-          variant="contained"
-          loading={isSubmitting || updatePricingtiersIsLoading}
-        >
-          {isEdit ? 'Update Now' : 'Create Now'}
-        </LoadingButton>
-      </Stack>
-    </FormProvider>
+            {isEdit ? 'Update Now' : 'Create Now'}
+          </LoadingButton>
+        </Stack>
+      </FormProvider>
+    </Card>
   );
 }

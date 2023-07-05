@@ -6,13 +6,17 @@ import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import FormProvider, { RHFSelect, RHFTextField, RHFUploadAvatar } from '../../../components/hook-form';
+import FormProvider, {
+  RHFSelect,
+  RHFTextField,
+  RHFUploadAvatar,
+} from '../../../components/hook-form';
 import LoadingScreen from '../../../components/loading-screen';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import {
   useCreateInstmaneger,
   useUpdateInstmanegerById,
-  useGetAllOrgList
+  useGetAllOrgList,
 } from '../../../services/instmanegerServices';
 import { fData } from '../../../utils/formatNumber';
 
@@ -21,35 +25,26 @@ InstmanegementAddForm.propTypes = {
   instdata: PropTypes.func,
 };
 
-const stateAlldata = [
-  { name: "MP" },
-  { name: "CG" },
-  { name: "UP" }
-];
+const stateAlldata = [{ name: 'MP' }, { name: 'CG' }, { name: 'UP' }];
 
-const inst_type = [
-  "SCHOOL",
-  "PRESCHOOL",
-  "COLLEGE",
-  "COACHING"
-]
+const inst_type = ['SCHOOL', 'PRESCHOOL', 'COLLEGE', 'COACHING'];
 
 export default function InstmanegementAddForm({ isEdit = false, instdata }) {
-
-  console.log(instdata)
+  console.log(instdata);
   const navigate = useNavigate();
 
   const { createInstmaneger, isLoading: instmanegerIsLoading } = useCreateInstmaneger();
   const { updateInstmaneger, isLoading: updateinstmanegerIsLoading } = useUpdateInstmanegerById();
 
-  const { data: orgAlldata } =   useGetAllOrgList();
-
+  const { data: orgAlldata } = useGetAllOrgList();
 
   const NewDesignationSchema = Yup.object().shape({
     name: Yup.string().required('Designation Name is required'),
     inst_type: Yup.string().required('Inst Type is required'),
     contact_no: Yup.string().required('Phone number is required'),
-    email_id: Yup.string().required('Email is required').email('Email must be a valid email address'),
+    email_id: Yup.string()
+      .required('Email is required')
+      .email('Email must be a valid email address'),
     city: Yup.string().required('City is required'),
     org_id: Yup.string().required('Org is required'),
     state: Yup.string().required('State is required'),
@@ -59,13 +54,13 @@ export default function InstmanegementAddForm({ isEdit = false, instdata }) {
   const defaultValues = useMemo(
     () => ({
       _id: instdata?._id || '',
-      name: instdata?.name || "",
+      name: instdata?.name || '',
       contact_no: instdata?.contact_no || '',
-      email_id: instdata?.email_id || "",
-      city: instdata?.city || "",
-      state: instdata?.state || "",
-      inst_logo: instdata?.inst_logo || "",
-      address: instdata?.address || "",
+      email_id: instdata?.email_id || '',
+      city: instdata?.city || '',
+      state: instdata?.state || '',
+      inst_logo: instdata?.inst_logo || '',
+      address: instdata?.address || '',
       inst_type: instdata?.inst_type,
       org_id: instdata?.org_id,
     }),
@@ -84,7 +79,6 @@ export default function InstmanegementAddForm({ isEdit = false, instdata }) {
     setValue,
     formState: { isSubmitting },
   } = methods;
-
 
   useEffect(() => {
     if (isEdit && instdata) {
@@ -126,7 +120,6 @@ export default function InstmanegementAddForm({ isEdit = false, instdata }) {
     }
   };
 
-
   const handleDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
     const newFile = Object.assign(file, {
@@ -135,15 +128,12 @@ export default function InstmanegementAddForm({ isEdit = false, instdata }) {
     if (file) {
       setValue('inst_logo', newFile, { shouldValidate: true });
     }
-
-  }
-
+  };
 
   const closeIt = () => {
     reset();
     navigate(PATH_DASHBOARD.instmanagment.list);
   };
-
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -176,73 +166,83 @@ export default function InstmanegementAddForm({ isEdit = false, instdata }) {
         </Grid>
 
         <Grid item xs={12} md={8}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <RHFTextField name="name" label="Name" />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <RHFTextField type="number"
-                onInput={(e) => {
-                  e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10)
-                }} name="contact_no" label="Contact No" />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <RHFTextField name="email_id" label="Email Id" />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <RHFTextField name="city" label="City" />
+          <Card sx={{ p: 3 }}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6}>
+                <RHFTextField name="name" label="Name" />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <RHFTextField
+                  type="number"
+                  onInput={(e) => {
+                    e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10);
+                  }}
+                  name="contact_no"
+                  label="Contact No"
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <RHFTextField name="email_id" label="Email Id" />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <RHFTextField name="city" label="City" />
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <RHFSelect native name="state" label="Select State" placeholder="Select State">
+                  <option value="" />
+                  {stateAlldata?.map((item) => (
+                    <option key={item?.name} value={item?.name}>
+                      {item?.name}
+                    </option>
+                  ))}
+                </RHFSelect>
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <RHFSelect
+                  native
+                  name="inst_type"
+                  label="Select Inst Type"
+                  placeholder="Select Inst Type"
+                >
+                  <option value="" />
+                  {inst_type?.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </RHFSelect>
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <RHFSelect native name="org_id" label="Select Org" placeholder="Select Org">
+                  <option value="" />
+                  {orgAlldata?.map((item, index) => (
+                    <option key={index} value={item?._id}>
+                      {item?.name}
+                    </option>
+                  ))}
+                </RHFSelect>
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <RHFTextField name="address" label="Address" />
+              </Grid>
             </Grid>
 
-            <Grid item xs={12} md={6}>
-              <RHFSelect native name="state" label="Select State" placeholder="Select State">
-                <option value="" />
-                {stateAlldata?.map((item) => (
-                  <option key={item?.name} value={item?.name}>
-                    {item?.name}
-                  </option>
-                ))}
-              </RHFSelect>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <RHFSelect native name="inst_type" label="Select Inst Type" placeholder="Select Inst Type">
-                <option value="" />
-                {inst_type?.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </RHFSelect>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <RHFSelect native name="org_id" label="Select Org" placeholder="Select Org">
-                <option value="" />
-                {orgAlldata?.map((item, index) => (
-                  <option key={index} value={item?._id}>
-                    {item?.name}
-                  </option>
-                ))}
-              </RHFSelect>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <RHFTextField name="address" label="Address" />
-            </Grid>
-          </Grid>
+            <Stack alignItems="flex-end" sx={{ pt: 3 }} spacing={3}>
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                loading={isSubmitting || instmanegerIsLoading || updateinstmanegerIsLoading}
+              >
+                {isEdit ? 'Update Now' : 'Create Now'}
+              </LoadingButton>
+            </Stack>
+          </Card>
         </Grid>
       </Grid>
-
-      <Stack alignItems='flex-end' sx={{ py: 3 }} spacing={3}>
-        <LoadingButton
-          type="submit"
-          variant="contained"
-          loading={isSubmitting || instmanegerIsLoading || updateinstmanegerIsLoading}
-        >
-          {isEdit ? 'Update Now' : 'Create Now'}
-        </LoadingButton>
-      </Stack>
     </FormProvider>
   );
 }
-
